@@ -1,11 +1,11 @@
 class Userprofiledetails{
-  var phone;
-  var username;
-  var uid;
+  String phone;
+  String username;
+  String uid;
   var session;
-  var email;
-  var dp;
-  var coin;
+  String email;
+  String dp;
+  int coin;
 
   Userprofiledetails({this.dp,this.phone,this.username,this.uid,this.session,this.email,this.coin});
 

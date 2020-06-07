@@ -1,5 +1,6 @@
 import 'package:trainkoi/SplashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:trainkoi/view/Services/ServiceScreen.dart';
 
 
 void main()  {
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:SplashScreen(),
+       // home:SplashScreen(),
+      home:ServiceScreen(),
         debugShowCheckedModeBanner: false,
         //home:MessageScreen(),
 

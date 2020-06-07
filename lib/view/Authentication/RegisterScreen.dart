@@ -39,7 +39,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               gradient: new LinearGradient(
                 begin: Alignment.centerLeft,
                 end: new Alignment(1.0, 0.0), // 10% of the width, so there are ten blinds.
-                colors: [Color(0xFF444152),  Color(0xFF6f6c7d)], // whitish to gray
+                colors: [Colors.green,Colors.black54,Colors.red], // whitish to gray
                 tileMode: TileMode.repeated, // repeats the gradient over the canvas
               ),
             ),
@@ -192,13 +192,14 @@ class RegisterScreenState extends State<RegisterScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       alignment: Alignment.center,
                       child: RaisedButton(
+                        color: Colors.black54,
                         onPressed: () async {
 
                           if (_formKey.currentState.validate()) {
                             _register();
                           }
                         },
-                        child: const Text('Register'),
+                        child: Text('Register',style: TextStyle(color: Colors.white.withOpacity(0.5) )),
                       ),
                     ),
 
@@ -218,6 +219,8 @@ class RegisterScreenState extends State<RegisterScreen> {
     // Clean up the controller when the Widget is disposed
     _emailController.dispose();
     _passwordController.dispose();
+    _phoneController.dispose();
+    _userNameController.dispose();
     super.dispose();
   }
 

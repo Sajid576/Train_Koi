@@ -40,13 +40,13 @@ class SharedPreferenceHelper{
   //read user details
   static  readfromlocalstorage()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var dp = prefs.getString('dp') ??'';
-    var phone = prefs.getString('phone') ??'';
-    var username=prefs.getString('username')??'';
+    String dp = prefs.getString('dp') ??'';
+    String phone = prefs.getString('phone') ??'';
+    String username=prefs.getString('username')??'';
     var session = prefs.getBool('session')?? false;
-    var uid = prefs.getString('uid')??'';
-    var email = prefs.getString('email')??'';
-    var coin = prefs.getString('coin')?? 0;
+    String uid = prefs.getString('uid')??'';
+    String email = prefs.getString('email')??'';
+    int coin = prefs.getInt('coin')?? 0;
 
 
     Userprofiledetails userProfile = new Userprofiledetails(dp:dp,phone:phone,username: username,uid: uid,session: session,email: email,coin:coin);

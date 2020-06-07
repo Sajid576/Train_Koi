@@ -37,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
               gradient: new LinearGradient(
                 begin: Alignment.centerLeft,
                 end: new Alignment(1.0, 0.0), // 10% of the width, so there are ten blinds.
-                colors: [Color(0xFF444152),  Color(0xFF6f6c7d)], // whitish to gray
+                colors: [Colors.green,Colors.black54,Colors.red], // whitish to gray
                 tileMode: TileMode.repeated, // repeats the gradient over the canvas
               ),
             ),
@@ -58,27 +58,21 @@ class LoginScreenState extends State<LoginScreen> {
                         width: MediaQuery.of(context).size.width*.25,
                         child: new CircleAvatar(
                           backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.white,
+                          foregroundColor: Colors.transparent,
                           radius: 100.0,
-                          child: new Text(
-                            "S",
-                            style: TextStyle(
-                              fontSize: 50.0,
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
+                          child:Image.asset('assets/app_logo.png',width: 100,height: 100,),
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.white,
+                            color: Colors.transparent,
                             width: 1.0,
                           ),
                           shape: BoxShape.circle,
                           //image: DecorationImage(image: this.logo)
                         ),
                       ),
-                      Text(
-                        'Share-E',style: TextStyle(color: Colors.white),
+                      SizedBox(
+                        height: 30,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -153,6 +147,7 @@ class LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         alignment: Alignment.center,
                         child:  FlatButton(
+
                           color:Colors.black.withOpacity(0.5) ,
                           //padding: EdgeInsets.all( 10,),
                           onPressed: () async {
@@ -160,7 +155,7 @@ class LoginScreenState extends State<LoginScreen> {
                               _signInWithEmailAndPassword();
                             }
                           },
-                          child: Text('Login',style: TextStyle(color: Colors.white.withOpacity(0.5))),
+                          child: Text('Login',style: TextStyle(color: Colors.white.withOpacity(0.5) )),
                         ),
                       ),
 

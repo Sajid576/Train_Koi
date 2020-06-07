@@ -5,4 +5,10 @@ class DatabaseModel{
       {
 
       }
+
+      editUserData()
+      {
+
+      }
+
 }
