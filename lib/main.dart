@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-       // home:SplashScreen(),
-      home:ServiceScreen(),
+        //home:SplashScreen(),
+        home:ServiceScreen(),
         debugShowCheckedModeBanner: false,
-        //home:MessageScreen(),
+
 
       );
   }

@@ -1,6 +1,3 @@
-
-
-
 import 'package:trainkoi/view/Services/GoogleMapScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -31,34 +28,81 @@ class _ServiceScreenState extends State<ServiceScreen> {
         ),
         body: SingleChildScrollView(
 
-        child: ListView(
-            children:  <Widget>[
+        child: Container(
+          margin: EdgeInsets.only(left: 0, right: 0, top: 150),
+          child: ListView(
+            shrinkWrap: true,
+              children:  <Widget>[
 
+                    Card(
+                      color: Colors.red,
+                      shape: StadiumBorder(
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 2.0,
+                        ),
+                      ),
+                        child: ListTile(
+                          onTap:(){
+                            navigateToGoogleMapScreen(1);
+                          },
+                        title: Text('যাত্রা শুরুর স্টেশন থেকে ট্রেনের প্রয়োজনীয় সময় ও দূরত্ব' ,style: TextStyle(
+                              color: Colors.white,
+                        ),),
+                    ),
+
+                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Card(
-                      child: ListTile(
-                        onTap: navigateToGoogleMapScreen(1),
-                      title: Text('যাত্রা শুরুর স্টেশন থেকে ট্রেনের প্রয়োজনীয় সময় ও দূরত্ব'),
+                    color: Colors.red,
+                    shape: StadiumBorder(
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text('ট্রেন এখন কোথায়?',style: TextStyle(
+                        color: Colors.white,
+                      ),),
+
+                      onTap:(){
+                        navigateToGoogleMapScreen(2);
+                      },
+                    ),
+
                   ),
-
-                 ),
-                Card(
-                  child: ListTile(
-                    title: Text('ট্রেন এখন কোথায়?'),
-
-                    onTap: navigateToGoogleMapScreen(2),
+                  SizedBox(
+                    height: 20,
                   ),
+                  Card(
+                    color: Colors.red,
+                    shape: StadiumBorder(
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: ListTile(
 
-                ),
-                Card(
-                  child: ListTile(
+                      title: Text('ট্রেন থেকে যাত্রা শেষ স্টেশনে পৌছাতে প্রয়োজনীয় সময় ও দূরত্ব',style: TextStyle(
+                        color: Colors.white,
+                      ),),
 
-                    title: Text('ট্রেন থেকে যাত্রা শেষ স্টেশনে পৌছাতে প্রয়োজনীয় সময় ও দূরত্ব'),
-                    onTap: navigateToGoogleMapScreen(3),
+                      onTap:(){
+                        navigateToGoogleMapScreen(3);
+                      },
+                    ),
+
                   ),
-
-                ),
-              ],
-            ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+        ),
       ),
     );
 

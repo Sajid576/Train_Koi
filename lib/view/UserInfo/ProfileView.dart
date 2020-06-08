@@ -12,6 +12,7 @@ import 'dart:io' as Io;
 import 'dart:convert';
 
 import 'package:trainkoi/controller/LeftNavigationDrawyerController.dart';
+import 'package:trainkoi/model/DatabaseModel.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -299,7 +300,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                      phoneNo=_phoneNoEditingController.text;
                                      SharedPreferenceHelper.updateLocalData(phoneNo, username);
 
-                                     //  FirebaseService.editUserData(phoneNo, username, uid);
+                                     DatabaseModel.editUserData(phoneNo, username, uid);
 
                                    }
 

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "369290148095-m1ig3p93oq2n37ckm9mj1u66p1teeek0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trainkoi",
+            "certificate_hash": "38fc855f9c9ab5cd5a8be1f5c282dbb0c9b9a087"
+          }
+        },
+        {
           "client_id": "369290148095-ugm0ojg7usfrddguej9k1hc239n9qk1n.apps.googleusercontent.com",
           "client_type": 3
         }
