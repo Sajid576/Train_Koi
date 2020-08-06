@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
+import 'package:trainkoi/HttpClient/HttpApiService.dart';
 import 'package:trainkoi/controller/LeftNavigationDrawyerController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -27,9 +28,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   LeftNavDrawyer leftnavState;
   @override
-  void initState() {
+  void initState() async{
     // TODO: implement initState
     super.initState();
+
+    //if the user data is not saved in local storage for uninstalling app then it will fetch the user data from server
+    var user=await SharedPreferenceHelper.readfromlocalstorage();
+     if(user.getsession()==false)
+       {
+          HttpApiService.fetchUserData(widget.authId);
+       }
+
     //instantiating left Navigation drawyer Object
     AnimationController controller=AnimationController(vsync:this ,duration: LeftNavDrawyer.duration);
     leftnavState=LeftNavDrawyer(controller);

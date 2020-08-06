@@ -1,6 +1,6 @@
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/model/DatabaseModel.dart';
+import 'package:trainkoi/HttpClient/HttpApiService.dart';
 import 'package:trainkoi/view/Authentication/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -241,7 +241,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         //user will given free 20 coins at the registration
         SharedPreferenceHelper.setLocalData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
 
-        DatabaseModel.setUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
+        HttpApiService.setUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
 
         AuxiliaryClass.showToast(user.email+" is successfully signed up");
 

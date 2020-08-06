@@ -8,11 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:path/path.dart';
+import 'package:trainkoi/HttpClient/HttpApiService.dart';
+
 import 'dart:io' as Io;
 import 'dart:convert';
 
 import 'package:trainkoi/controller/LeftNavigationDrawyerController.dart';
-import 'package:trainkoi/model/DatabaseModel.dart';
+
 
 
 class ProfilePage extends StatefulWidget {
@@ -300,7 +302,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                      phoneNo=_phoneNoEditingController.text;
                                      SharedPreferenceHelper.updateLocalData(phoneNo, username);
 
-                                     DatabaseModel.editUserData(phoneNo, username, uid);
+                                     HttpApiService.editUserData(phoneNo, username, uid);
 
                                    }
 

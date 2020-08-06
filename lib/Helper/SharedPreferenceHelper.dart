@@ -5,7 +5,8 @@ class SharedPreferenceHelper{
 
 
 
-  //write purpose
+  //this function used for storing user information in the local storage if user data is not saved in local storage.
+  //this situation arises when user is not signed up yet or user uninstalled the app for some reasons.
   static setLocalData(String email,String phone,String username,String uid,int coin) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', email);
@@ -17,13 +18,14 @@ class SharedPreferenceHelper{
 
 
   }
-  //adding value which is update in editing option
+  ///this function used for storing user information in the local storage
   static updateLocalData(String phone,String username) async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
     prefs1.setString('phone', phone);
     prefs1.setString('username', username);
     prefs1.setBool('session', true);
   }
+  ///this function used for storing user coin data in the local storage
   static updateLocalCoinData(int coin) async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
     prefs1.setInt('coin', coin);
@@ -37,7 +39,7 @@ class SharedPreferenceHelper{
 
 
 
-  //read user details
+  ///this function used for fetching user data from local storage
   static  readfromlocalstorage()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String dp = prefs.getString('dp') ??'';

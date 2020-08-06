@@ -31,6 +31,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   Widget serviceOneAndThreeContainer()
   {
+    //DraggableScrollableSheet needs a scrollable child widget like ListView or SingleChildScrollview.Then the scrollable widget must contain the
+    //controller of the builder.
     return DraggableScrollableSheet(
         initialChildSize: 0.4,
         minChildSize: 0.2,

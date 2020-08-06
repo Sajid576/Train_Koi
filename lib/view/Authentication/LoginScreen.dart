@@ -213,6 +213,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   // Example code of how to sign in with email and password.
   void _signInWithEmailAndPassword() async {
+
     try {
       final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
