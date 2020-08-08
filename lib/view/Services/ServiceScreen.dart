@@ -2,6 +2,11 @@ import 'package:trainkoi/view/Services/GoogleMapScreen.dart';
 import 'package:flutter/material.dart';
 
 class ServiceScreen extends StatefulWidget {
+  String trainName="";
+  String startingStation="";
+  String endingStation="";
+  ServiceScreen(this.trainName,this.startingStation,this.endingStation);
+
   @override
   _ServiceScreenState createState() => _ServiceScreenState();
 }
@@ -14,7 +19,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
   {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => GoogleMapScreen(value)),
+          MaterialPageRoute(builder: (context) => GoogleMapScreen(value,widget.trainName,widget.startingStation,widget.endingStation)),
         );
   }
   @override

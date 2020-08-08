@@ -238,12 +238,8 @@ class RegisterScreenState extends State<RegisterScreen> {
         password: _passwordController.text,
       )).user;
       if (user != null) {
-        //user will given free 20 coins at the registration
-        SharedPreferenceHelper.setLocalData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
 
         HttpApiService.setUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
-
-        AuxiliaryClass.showToast(user.email+" is successfully signed up");
 
         //Navigator.pop(context);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen() ));

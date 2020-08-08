@@ -11,7 +11,7 @@ import 'package:connectivity/connectivity.dart';
 
 class AuxiliaryClass{
 
-  static Future<void> showMyDialog(context,message,coin) async {
+  static Future<void> showMyDialog(context,message,coin,trainName,startingStation,endingStation) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must not tap button!
@@ -28,7 +28,7 @@ class AuxiliaryClass{
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('Approve'),
+              child: Text('Ok'),
               onPressed: () {
 
                 Navigator.of(context).pop();
@@ -44,7 +44,7 @@ class AuxiliaryClass{
 
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => ServiceScreen()),
+                        MaterialPageRoute(builder: (context) => ServiceScreen(trainName,startingStation,endingStation)),
                       );
                   }
 

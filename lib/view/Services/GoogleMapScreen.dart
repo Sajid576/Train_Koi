@@ -5,13 +5,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter/material.dart';
+import 'package:trainkoi/HttpClient/HttpApiService.dart';
+import 'package:trainkoi/view/Services/GoogleMapThread.dart';
 import 'package:trainkoi/view/Services/GoogleMapView.dart';
 
 
 class GoogleMapScreen extends StatefulWidget {
   var serviceNo;
 
-  GoogleMapScreen(this.serviceNo);
+  String trainName="";
+  String startingStation="";
+  String endingStation="";
+  GoogleMapScreen(this.serviceNo,this.trainName,this.startingStation,this.endingStation);
+
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
 }
@@ -24,10 +30,21 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // TODO: implement initState
     super.initState();
     //instantiate the Google Map view object
-    GoogleMapView.init();
+    GoogleMapView.init(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
+
+    //start the location data fetching thread.
+    GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
 
   }
 
+
+  @override
+  void dispose() {
+      super.dispose();
+      //stop the location data fetching thread
+      GoogleMapThread.subscriber.cancel();
+
+  }
 
   Widget serviceOneAndThreeContainer()
   {
@@ -178,7 +195,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ),
       body: Stack(
          children: <Widget>[
-            GoogleMapView().googleMapLayout(),
+            GoogleMapView().googleMapLayout(widget.serviceNo),
 
            widget.serviceNo==1 || widget.serviceNo==3 ? serviceOneAndThreeContainer(): serviceTwoContainer(),
 

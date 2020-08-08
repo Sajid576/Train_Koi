@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:trainkoi/Helper/Train_Station_Lists.dart';
+import 'dart:async';
 
 class HomeScreen extends StatefulWidget {
   var authId;
@@ -18,6 +19,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
+  ///
+
+
+
   static var theme;
 
   final fromStationController=TextEditingController();
@@ -27,17 +32,26 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   final _formKey = GlobalKey<FormState>();
 
   LeftNavDrawyer leftnavState;
+
+
+  checkUserData()
+  {
+    //if the user data is not saved in local storage for uninstalling app then it will fetch the user data from server
+    SharedPreferenceHelper.readfromlocalstorage().then((user){
+      if(user.getsession()==false)
+      {
+        HttpApiService.fetchUserData(widget.authId);
+      }
+    });
+
+  }
+
   @override
-  void initState() async{
+  void initState() {
     // TODO: implement initState
     super.initState();
 
-    //if the user data is not saved in local storage for uninstalling app then it will fetch the user data from server
-    var user=await SharedPreferenceHelper.readfromlocalstorage();
-     if(user.getsession()==false)
-       {
-          HttpApiService.fetchUserData(widget.authId);
-       }
+    checkUserData();
 
     //instantiating left Navigation drawyer Object
     AnimationController controller=AnimationController(vsync:this ,duration: LeftNavDrawyer.duration);
@@ -225,13 +239,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   var coinAmount= user.getCoin();
                                   if(coinAmount>0)
                                   {
-                                    var message="Your coin amount is "+coinAmount.toString()+"If you take the service 1 coin will be deducted from your account.Would you like to continue?";
-                                    AuxiliaryClass.showMyDialog(context,message,coinAmount);
+                                    var message="Your coin amount is "+coinAmount.toString()+".If you take the service 1 coin will be deducted from your account.Would you like to continue?";
+                                    AuxiliaryClass.showMyDialog(context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+
                                   }
                                   else
                                   {
-                                    var message="Your coin amount is "+coinAmount.toString()+"If you want to take the service ,please recharge your coin first";
-                                    AuxiliaryClass.showMyDialog(context,message,coinAmount);
+                                    var message="Your coin amount is "+coinAmount.toString()+".If you want to take the service ,please recharge your coin first";
+                                    AuxiliaryClass.showMyDialog(context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
                                   }
 
 

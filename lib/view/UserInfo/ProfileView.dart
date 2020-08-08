@@ -234,8 +234,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                    enabled: editEnabled,
                                    onChanged: (text) {
 
-                                     _usernameEditingController.text = text;
-                                     _usernameEditingController.selection = TextSelection.fromPosition(TextPosition(offset: _usernameEditingController.text.length));
+                                     _usernameEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
 
                                    },
                                    controller: _usernameEditingController,
@@ -263,8 +262,8 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                    enabled: editEnabled,
                                    onChanged: (text) {
 
-                                     _phoneNoEditingController.text = text;
-                                     _phoneNoEditingController.selection = TextSelection.fromPosition(TextPosition(offset: _phoneNoEditingController.text.length));
+
+                                     _phoneNoEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
 
                                    },
                                    controller: _phoneNoEditingController,
@@ -300,7 +299,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                    {
                                      username=_usernameEditingController.text;
                                      phoneNo=_phoneNoEditingController.text;
-                                     SharedPreferenceHelper.updateLocalData(phoneNo, username);
+
 
                                      HttpApiService.editUserData(phoneNo, username, uid);
 
