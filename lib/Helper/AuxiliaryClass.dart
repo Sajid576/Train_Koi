@@ -1,5 +1,6 @@
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/view/Services/ServiceScreen.dart';
+import 'package:trainkoi/HttpClient/HttpApiService.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +12,9 @@ import 'package:connectivity/connectivity.dart';
 
 class AuxiliaryClass{
 
-  static Future<void> showMyDialog(context,message,coin,trainName,startingStation,endingStation) async {
+
+
+  static Future<void> showMyDialog(_scaffoldKey,context,message,coin,trainName,startingStation,endingStation) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must not tap button!
@@ -29,24 +32,29 @@ class AuxiliaryClass{
           actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
-              onPressed: () {
+              onPressed: ()  {
 
-                Navigator.of(context).pop();
 
+                //Navigator.of(context).pop();
                 if(coin>0)
                   {
-                      coin--;
-                      //updating the coin amount in local database after decrementing the coin
-                      SharedPreferenceHelper.updateLocalCoinData(coin);
+                    _scaffoldKey.currentState.showSnackBar(
+                        new SnackBar(duration: new Duration(seconds: 2), content:
+                        new Row(
+                          children: <Widget>[
+                            new CircularProgressIndicator(),
+                            new Text("  Transaction processing ... ")
+                          ],
+                        ),
+                        ));
+                      SharedPreferenceHelper.readfromlocalstorage().then((user) async{
+                            var uid =  user.getuid();
 
-                      //Snackbar
-                      Scaffold.of(context).showSnackBar(SnackBar(content: Text('1 coin has been deducted from your account')));
+                            HttpTransactionApiService.requestSpendCoinData(context,uid,trainName,startingStation,endingStation);
 
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => ServiceScreen(trainName,startingStation,endingStation)),
-                      );
+                      });
                   }
+
 
               },
             ),
@@ -72,7 +80,8 @@ class AuxiliaryClass{
         fontSize: 16.0);
   }
 
-
+//Snackbar
+  ///  Scaffold.of(context).showSnackBar(SnackBar(content: Text()));
 
   static Future<bool> checkInternetConnection() async
   {

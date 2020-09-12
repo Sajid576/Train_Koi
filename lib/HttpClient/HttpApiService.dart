@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
 import 'package:trainkoi/view/Services/GoogleMapView.dart';
+import 'package:trainkoi/view/Services/ServiceScreen.dart';
 
 abstract class IHttpService
 {
@@ -100,12 +102,83 @@ class HttpApiService implements IHttpService{
             Map<String, dynamic> body = jsonDecode(res.body);
 
             //saving the user data in local storage after fetching from server
-            SharedPreferenceHelper.setLocalData(body['email'], body['phone'],body['username'],uid,int.parse(body['coins']));
+            SharedPreferenceHelper.setLocalData(body['email'], body['phone'],body['username'],body['uid'],int.parse(body['coins']));
             print(body['message']);
 
         } else {
             print("Data couldn't be fetched");
         }
     }
+
+}
+
+class HttpTransactionApiService extends HttpApiService
+{
+     static requestAddCoinData(uid,requestedCoin)async
+     {
+         String url="transactionApi/users/add";
+         String mainUrl=IHttpService.serverUrl+url;
+         var data = {
+             'uid':uid,
+             'requestedCoin':requestedCoin,
+         };
+         //encode Map to JSON
+         var requestBody = json.encode(data);
+
+         http.Response res = await http.put(mainUrl,
+             headers:  {"Content-Type": "application/json"},
+             body: requestBody,
+         );
+
+         if (res.statusCode >= 200 && res.statusCode<=205) {
+             //decode JSON to map
+             Map<String, dynamic> body = jsonDecode(res.body);
+             var message=body['message'];
+             var coin=body['coins'];
+             AuxiliaryClass.showToast(message);
+             SharedPreferenceHelper.updateLocalCoinData(coin);
+
+         } else {
+             AuxiliaryClass.showToast("Coin transaction failed to complete");
+         }
+     }
+
+     static requestSpendCoinData(context,uid,trainName,startingStation,endingStation)async
+     {
+         String url="transactionApi/users/spend";
+         String mainUrl=IHttpService.serverUrl+url;
+         print("hehehe: "+uid);
+         var data = {
+             'uid':uid,
+
+         };
+         //encode Map to JSON
+         var requestBody = json.encode(data);
+
+         http.Response res = await http.put(mainUrl,
+             headers:  {"Content-Type": "application/json"},
+             body: requestBody,
+         );
+
+         if (res.statusCode >= 200 && res.statusCode<=205) {
+             //decode JSON to map
+             Map<String, dynamic> body = jsonDecode(res.body);
+             var message=body['message'];
+             var coin=body['coins'];
+             //updating the coin amount in local database after decrementing the coin
+             SharedPreferenceHelper.updateLocalCoinData(coin);
+
+             AuxiliaryClass.showToast(message);
+
+
+             Navigator.pushReplacement(
+                 context,
+                 MaterialPageRoute(builder: (context) => ServiceScreen(trainName,startingStation,endingStation)),
+             );
+
+         } else {
+             AuxiliaryClass.showToast("Coin transaction failed to complete");
+         }
+     }
 
 }

@@ -1,4 +1,5 @@
 import 'package:eventify/eventify.dart';
+
 import 'dart:async';
 import 'package:trainkoi/HttpClient/HttpApiService.dart';
 import 'package:trainkoi/HttpClient/HttpLocationTrackingService.dart';
@@ -10,14 +11,19 @@ class GoogleMapThread
   static var count=0;
   GoogleMapThread();
 
-  static initThread(serviceNo,trainName, startingStation,endingStation)
+  static initThread(_scaffoldKey,serviceNo,trainName, startingStation,endingStation)
   {
 
-    count=0;
+
     ExtendedEmitter emitter = new ExtendedEmitter();
     subscriber=emitter.on("timer", null, (ev, context) {
         HttpLocationTrackingService.requestDrawRoute(serviceNo,trainName, startingStation,endingStation);
+        if(count<1)
+          {
+            _scaffoldKey = null;
+          }
         count++;
+
         print(count.toString());
 
     });
@@ -32,7 +38,7 @@ class ExtendedEmitter extends EventEmitter {
     emit("timer", this, timer);
   }
   void startListenForLocation() {
-    Timer.periodic(Duration(seconds: 1), timerCallback);
+    Timer.periodic(Duration(seconds: 10), timerCallback);
   }
 }
 

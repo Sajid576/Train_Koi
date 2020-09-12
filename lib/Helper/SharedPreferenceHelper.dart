@@ -25,9 +25,16 @@ class SharedPreferenceHelper{
     prefs1.setString('username', username);
     prefs1.setBool('session', true);
   }
-  ///this function used for storing user coin data in the local storage
-  static updateLocalCoinData(int coin) async {
+  static updateLocalUid(uid)async
+  {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
+    prefs1.setString('uid', uid);
+  }
+
+  ///this function used for storing user coin data in the local storage
+  static updateLocalCoinData(coin) async {
+    SharedPreferences prefs1 = await SharedPreferences.getInstance();
+    coin=int.parse(coin);
     prefs1.setInt('coin', coin);
   }
 

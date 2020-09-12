@@ -10,6 +10,8 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:trainkoi/Helper/Train_Station_Lists.dart';
 import 'dart:async';
 
+GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 class HomeScreen extends StatefulWidget {
   var authId;
 
@@ -19,9 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-  ///
-
-
 
   static var theme;
 
@@ -40,6 +39,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     SharedPreferenceHelper.readfromlocalstorage().then((user){
       if(user.getsession()==false)
       {
+        _scaffoldKey.currentState.showSnackBar(
+            new SnackBar(duration: new Duration(seconds: 2), content:
+            new Row(
+              children: <Widget>[
+                new CircularProgressIndicator(),
+                new Text("  Loading ... ")
+              ],
+            ),
+            ));
+        print("Data fetching");
         HttpApiService.fetchUserData(widget.authId);
       }
     });
@@ -87,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           elevation: 8,
           color: Colors.white,
           child: Scaffold(
+              key: _scaffoldKey,
               backgroundColor: Colors.white,
               appBar: AppBar(
               leading:
@@ -133,13 +143,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               child: Theme(
                                 data: theme.copyWith(primaryColor: Colors.deepPurple),
                                 child: SimpleAutoCompleteTextField(
+
                                   onFocusChanged:(hasFocus)
                                   {
 
                                   },
                                   suggestions: Station.stationList,
                                   decoration: InputDecoration(
+
                                       enabledBorder: OutlineInputBorder(
+
                                           borderRadius: BorderRadius.all(Radius.circular(8)),
                                           borderSide: BorderSide(color: Colors.grey[200])),
                                       icon: Image.asset('assets/from.png'),
@@ -204,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 {
 
                                 },
+                                suggestions: TrainList.intercityTrainList,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -240,13 +254,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   if(coinAmount>0)
                                   {
                                     var message="Your coin amount is "+coinAmount.toString()+".If you take the service 1 coin will be deducted from your account.Would you like to continue?";
-                                    AuxiliaryClass.showMyDialog(context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+                                    AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
 
                                   }
                                   else
                                   {
                                     var message="Your coin amount is "+coinAmount.toString()+".If you want to take the service ,please recharge your coin first";
-                                    AuxiliaryClass.showMyDialog(context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+                                    AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
                                   }
 
 
@@ -277,6 +291,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    _scaffoldKey = new GlobalKey<ScaffoldState>();
     theme = Theme.of(context);
     return Scaffold(
       body: Stack(

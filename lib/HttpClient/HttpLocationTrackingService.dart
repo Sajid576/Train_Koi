@@ -22,13 +22,16 @@ class HttpLocationTrackingService implements IHttpLocationTrackingService
 
   static requestDrawRoute(serviceNo,trainName,startingStation,endingStation)async
   {
+
+    serviceNo=serviceNo.toString();
     //dynamic URL
     String url="routeBuilderApi/"+trainName+"/"+startingStation+"/"+endingStation+"/"+serviceNo;
     String mainUrl=IHttpService.serverUrl+url;
 
     http.Response res = await http.get(mainUrl);
 
-    if (res.statusCode >= 200 && res.statusCode<=205) {
+    if (res.statusCode >= 200 && res.statusCode<=205)
+    {
       //decode JSON to map
       Map<String, dynamic> body = jsonDecode(res.body);
       GoogleMapView.setServerData(body);

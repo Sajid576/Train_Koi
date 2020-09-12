@@ -9,7 +9,7 @@ import 'package:trainkoi/HttpClient/HttpApiService.dart';
 import 'package:trainkoi/view/Services/GoogleMapThread.dart';
 import 'package:trainkoi/view/Services/GoogleMapView.dart';
 
-
+GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 class GoogleMapScreen extends StatefulWidget {
   var serviceNo;
 
@@ -32,8 +32,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     //instantiate the Google Map view object
     GoogleMapView.init(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
 
+    _scaffoldKey.currentState.showSnackBar(
+        new SnackBar(duration: new Duration(seconds: 5), content:
+        new Row(
+          children: <Widget>[
+            new CircularProgressIndicator(),
+            new Text("  Transaction processing ... ")
+          ],
+        ),
+        ));
     //start the location data fetching thread.
-    GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
+    GoogleMapThread.initThread(_scaffoldKey,widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
 
   }
 
@@ -70,7 +79,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       title: Text('দূরত্ব', style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
-                      subtitle: Text('', style: TextStyle(
+                      subtitle: Text(GoogleMapView.requiredDistance, style: TextStyle(
                         color: Colors.white,
                       ),),
 
@@ -85,7 +94,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       title: Text('সময়', style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
-                      subtitle: Text('', style: TextStyle(
+                      subtitle: Text(GoogleMapView.timeInfo, style: TextStyle(
                         color: Colors.white,
                       ),),
 
@@ -186,7 +195,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    _scaffoldKey = new GlobalKey<ScaffoldState>();
      return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
         title: Text("TrainKoi"),

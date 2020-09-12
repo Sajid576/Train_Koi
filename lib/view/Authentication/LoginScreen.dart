@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 class LoginScreen extends StatefulWidget {
   final String title = 'Login';
@@ -25,6 +25,7 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Center(child: Text('Sign In')),
         backgroundColor: Colors.black,
@@ -214,27 +215,36 @@ class LoginScreenState extends State<LoginScreen> {
   // Example code of how to sign in with email and password.
   void _signInWithEmailAndPassword() async {
 
-    try {
-      final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      )).user;
-      if (user != null) {
-        setState(() {
+        try {
+          _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(duration: new Duration(seconds: 2), content:
+              new Row(
+                children: <Widget>[
+                  new CircularProgressIndicator(),
+                  new Text("  Signing-In... ")
+                ],
+              ),
+              ));
+          final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+                    email: _emailController.text.trim(),
+                    password: _passwordController.text.trim(),
+              )).user;
+                  if (user != null) {
+                    setState(() {
 
-          AuxiliaryClass.showToast(user.email+" successfully logged in");
-          Navigator.pop(context);
-          Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen( user.uid) ));
+                      AuxiliaryClass.showToast(user.email+" successfully logged in");
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen( user.uid) ));
 
-        });
-      } else {
-        AuxiliaryClass.showToast(user.email+" failed log in");
-      }
-    } on PlatformException catch (err) {
-      AuxiliaryClass.showToast(err.message);
-    } catch (err) {
-      AuxiliaryClass.showToast(err.message);
-    }
+                    });
+                  } else {
+                      AuxiliaryClass.showToast(user.email+" failed log in");
+                  }
+        } on PlatformException catch (err) {
+                      AuxiliaryClass.showToast(err.message);
+        } catch (err) {
+                      AuxiliaryClass.showToast(err.message);
+        }
   }
 }
 

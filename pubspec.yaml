@@ -55,9 +55,9 @@ dev_dependencies:
   # Add the dependency for the FlutterFire plugin for Google Analytics
   firebase_analytics: ^5.0.2
   #google map api dependency
-  google_maps_flutter: ^0.5.11
+  google_maps_flutter: ^0.5.32
   #background location tracking  library
-  background_location: ^0.0.9+1
+  background_location: ^0.1.2
   #convert coordinate to address library
   geolocator: ^5.3.1
   #for loading image on the google map marker
@@ -99,6 +99,8 @@ dev_dependencies:
   #for cleating polylines on google map
   flutter_polyline_points: ^0.2.1
 
+  #for local push notifications
+  flutter_local_notifications: ^1.4.4+1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 class RegisterScreen extends StatefulWidget {
   final String title = 'Sign Up';
 
@@ -28,6 +28,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
         backgroundColor: Colors.black,
@@ -230,7 +231,15 @@ class RegisterScreenState extends State<RegisterScreen> {
   // Example code for registration.
   void _register() async {
 
-
+    _scaffoldKey.currentState.showSnackBar(
+        new SnackBar(duration: new Duration(seconds: 2), content:
+        new Row(
+          children: <Widget>[
+            new CircularProgressIndicator(),
+            new Text("  Signing-In... ")
+          ],
+        ),
+        ));
 
     try {
       final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(

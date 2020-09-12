@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GoogleMapView{
 
+  static String timeInfo="";
   static String estimatedTime="";
   static String requiredDistance="";
   static var route=[];
@@ -33,16 +34,24 @@ class GoogleMapView{
 
   GoogleMapView.init(serviceNo,trainName,startingStation,endingStation)
   {
+        /// init class variables
+        GoogleMapView.timeInfo="";
+        GoogleMapView.estimatedTime="";
+        GoogleMapView.requiredDistance="";
+        GoogleMapView.route=[];
+        GoogleMapView.velocity="";
+        GoogleMapView.trainLongitude=0;
+        GoogleMapView.trainLatitutde=0;
+        GoogleMapView.destLat=0;
+        GoogleMapView.destLon=0;
+        GoogleMapView.direction="";
 
+        //init class variables with parameter values
         GoogleMapView.serviceNo=serviceNo;
         GoogleMapView.trainName=trainName;
         GoogleMapView.fromStation=startingStation;
         GoogleMapView.toStation=endingStation;
 
-
-        markers = <MarkerId, Marker>{};
-        // Map storing polylines created by connecting two points
-        polylines = {};
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -52,7 +61,9 @@ class GoogleMapView{
   //add polyline to the Google Map widget
   static drawPolyline()
   {
-    var polylineCoordinates=[];
+    // Map storing polylines created by connecting two points
+    polylines = {};
+    var polylineCoordinates= new List<LatLng>();
 
     GoogleMapView.route.forEach((element) {
       var lat=double.parse( element.split(',')[0]);
@@ -66,7 +77,7 @@ class GoogleMapView{
     // Initializing Polyline
     Polyline polyline = Polyline(
       polylineId: id,
-      color: Colors.red,
+      color: Colors.blue,
       points: polylineCoordinates,
       width: 3,
     );
@@ -75,8 +86,10 @@ class GoogleMapView{
 
   }
 
-  static setMarker()
+  /// this method used to set train marker & destination station marker on google map
+  static setMarker() async
   {
+        markers = <MarkerId, Marker>{};
         // Train Location Marker
         Marker trainMarker = Marker(
           markerId: MarkerId("train"),
@@ -88,7 +101,7 @@ class GoogleMapView{
             title: GoogleMapView.trainName,
             snippet: GoogleMapView.velocity,
           ),
-          icon: BitmapDescriptor.defaultMarker,
+          icon:await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/from.png'),
         );
 
         if(GoogleMapView.serviceNo!=2)
@@ -108,7 +121,7 @@ class GoogleMapView{
                   title:GoogleMapView.fromStation   ,
 
                 ),
-                icon: BitmapDescriptor.defaultMarker,
+                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/to.png'),
               );
 
             }
@@ -131,42 +144,62 @@ class GoogleMapView{
             GoogleMapView.markers[MarkerId("train")]=trainMarker;
             GoogleMapView.markers[MarkerId('destination')]=destinationMarker;
 
-
           }
-
-
-
-
   }
 
+  /// this method will be called repeatedly after getting response from the server. And then it will repeatedly
+  /// update the Google map .
   static setServerData(body)
   {
       if(GoogleMapView.serviceNo==1 || GoogleMapView.serviceNo==3)
         {
-          GoogleMapView.estimatedTime=body['estimatedTime'];
-          GoogleMapView.requiredDistance=body['requiredDistance'];
+          GoogleMapView.estimatedTime=body['estimatedTime'].toString();
+          GoogleMapView.timeInfo=body['message'];
+          GoogleMapView.requiredDistance=body['requiredDistance'].toString();
           GoogleMapView.route=body['route'];
           GoogleMapView.destLat= double.parse(body['destinationCordinate'].split(',')[0]) ;
           GoogleMapView.destLon= double.parse(body['destinationCordinate'].split(',')[1]) ;
 
           var trainData=body['traindata'];
           GoogleMapView.velocity=trainData['velocity'];
-          GoogleMapView.trainLatitutde=trainData['latitude'];
-          GoogleMapView.trainLongitude=trainData['longitude'];
+          GoogleMapView.trainLatitutde=double.parse(trainData['latitude']);
+          GoogleMapView.trainLongitude=double.parse(trainData['longitude']);
 
-
+          print(body);
           drawPolyline();
           setMarker();
+
+          if (GoogleMapView.googleMapController != null)
+          {
+            print("points:  "+GoogleMapView.trainLatitutde.toString()+","+GoogleMapView.trainLongitude.toString());
+            GoogleMapView.googleMapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+
+                target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
+                tilt: 30,
+                zoom: 12.00)));
+
+          }
 
         }
       else
         {
           var trainData=body['traindata'];
           GoogleMapView.velocity=trainData['velocity'];
-          GoogleMapView.trainLatitutde=trainData['latitude'];
-          GoogleMapView.trainLongitude=trainData['longitude'];
+          GoogleMapView.trainLatitutde=double.parse( trainData['latitude']);
+          GoogleMapView.trainLongitude= double.parse(trainData['longitude']);
 
           setMarker();
+
+          if (GoogleMapView.googleMapController != null)
+          {
+            print("points:  "+GoogleMapView.trainLatitutde.toString()+","+GoogleMapView.trainLongitude.toString());
+            GoogleMapView.googleMapController.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
+
+                target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
+                tilt: 30,
+                zoom: 12.00)));
+
+          }
         }
 
   }
