@@ -86,6 +86,34 @@ class HttpApiService implements IHttpService{
         }
     }
 
+    ///this request is for uploading image url to server
+    static requestUploadImage(uid,dp) async
+    {
+        String url="authenticationApi/users/edit/dp";
+        String mainUrl=IHttpService.serverUrl+url;
+        var data = {
+            'uid':uid,
+            'dp':dp,
+
+        };
+        //encode Map to JSON
+        var requestBody = json.encode(data);
+
+        http.Response res = await http.put(mainUrl,
+            headers:  {"Content-Type": "application/json"},
+            body: requestBody,
+        );
+
+        if (res.statusCode >= 200 && res.statusCode<=205) {
+            //decode JSON to map
+            Map<String, dynamic> body = jsonDecode(res.body);
+            var message=body['message'];
+            AuxiliaryClass.showToast(message);
+
+        } else {
+            AuxiliaryClass.showToast("image failed to upload");
+        }
+    }
     //this method will be called from HomeScreen to fetch the User details and set those to the Profile Page.
     //it will be called if user data is not available on local storage.
     static fetchUserData(uid) async
@@ -112,7 +140,7 @@ class HttpApiService implements IHttpService{
 
 }
 
-class HttpTransactionApiService extends HttpApiService
+class HttpTransactionApiService implements HttpApiService
 {
      static requestAddCoinData(uid,requestedCoin)async
      {
@@ -120,7 +148,7 @@ class HttpTransactionApiService extends HttpApiService
          String mainUrl=IHttpService.serverUrl+url;
          var data = {
              'uid':uid,
-             'requestedCoin':requestedCoin,
+             'requestedCoins':requestedCoin,
          };
          //encode Map to JSON
          var requestBody = json.encode(data);
@@ -134,10 +162,10 @@ class HttpTransactionApiService extends HttpApiService
              //decode JSON to map
              Map<String, dynamic> body = jsonDecode(res.body);
              var message=body['message'];
-             var coin=body['coins'];
-             AuxiliaryClass.showToast(message);
+             var coin=( body['coins']);
+             print(coin);
              SharedPreferenceHelper.updateLocalCoinData(coin);
-
+             AuxiliaryClass.showToast(message);
          } else {
              AuxiliaryClass.showToast("Coin transaction failed to complete");
          }
