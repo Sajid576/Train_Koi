@@ -9,7 +9,7 @@ This is an android application where realtime time live tracking of all trains o
 - https://blog.codemagic.io/creating-a-route-calculator-using-google-maps/  (Google Map API for flutter)
 
 
-# System requirements
+## System requirements
 
 To install and run Flutter, your development environment must meet these minimum requirements:
 
@@ -24,13 +24,13 @@ If Git for Windows is already installed, make sure you can run git commands from
 
 
 
-# Installation Guide:
+## Installation Guide:
 
 
 - Download and install Android Studio.
 - Start Android Studio, and go through the ‘Android Studio Setup Wizard’. This installs the latest Android SDK, Android SDK Command-line Tools, and Android SDK Build-Tools, which are required by Flutter when developing for Android.
 
-* Set up your Android device *
+##### Set up your Android device 
 - To prepare to run and test your Flutter app on an Android device, you need an Android device running Android 4.1 (API level 16) or higher.
 
 - Enable Developer options and USB debugging on your device. Detailed instructions are available in the Android documentation.
