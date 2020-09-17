@@ -1,7 +1,5 @@
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trainkoi/Model/HttpApiService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';

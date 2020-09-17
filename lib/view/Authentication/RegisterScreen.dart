@@ -1,6 +1,5 @@
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
-import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
+import 'package:trainkoi/controller/HttpController.dart';
 import 'package:trainkoi/view/Authentication/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +40,7 @@ class RegisterScreenState extends State<RegisterScreen> {
               gradient: new LinearGradient(
                 begin: Alignment.centerLeft,
                 end: new Alignment(1.0, 0.0), // 10% of the width, so there are ten blinds.
-                colors: [Colors.green,Colors.black54,Colors.red], // whitish to gray
+                colors: [Colors.greenAccent,Colors.redAccent], // whitish to gray
                 tileMode: TileMode.repeated, // repeats the gradient over the canvas
               ),
             ),
@@ -248,7 +247,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       )).user;
       if (user != null) {
 
-        HttpApiService.setUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
+        HttpController.requestSetUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
 
         //Navigator.pop(context);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen() ));

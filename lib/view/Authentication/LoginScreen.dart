@@ -38,7 +38,7 @@ class LoginScreenState extends State<LoginScreen> {
               gradient: new LinearGradient(
                 begin: Alignment.centerLeft,
                 end: new Alignment(1.0, 0.0), // 10% of the width, so there are ten blinds.
-                colors: [Colors.green,Colors.black54,Colors.red], // whitish to gray
+                colors: [Colors.greenAccent,Colors.redAccent], // whitish to gray
                 tileMode: TileMode.repeated, // repeats the gradient over the canvas
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
+import 'package:trainkoi/controller/HttpController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 class CoinPaymentScreen extends StatefulWidget {
   @override
   _CoinPaymentScreenState createState() => _CoinPaymentScreenState();
+
 }
 
 class _CoinPaymentScreenState extends State<CoinPaymentScreen> {
@@ -157,7 +158,7 @@ class _CoinPaymentScreenState extends State<CoinPaymentScreen> {
                           ));
                       SharedPreferenceHelper.readfromlocalstorage().then((user) {
                         var uid=user.getuid();
-                        HttpTransactionApiService.requestAddCoinData(uid, requiredAmount);
+                        HttpTransactionController.requestAddCoinData(uid, requiredAmount);
 
                       });
 

@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/view/Services/GoogleMapView.dart';
+import 'file:///D:/Flutter_Projects/train_koi/lib/controller/GoogleMapView.dart';
 import 'package:trainkoi/view/Services/ServiceScreen.dart';
+import 'package:trainkoi/controller/HttpController.dart';
 
 abstract class IHttpService
 {
     static const String serverUrl="https://trainkoi.herokuapp.com/";
-    static setUserData(email,username,phone,uid,coin)async {}
-    static editUserData(phone,username,uid)async{}
-    static fetchUserData(uid) async{}
+    static requestSetUserData(email,username,phone,uid,coin)async {}
+    static requestEditUserData(phone,username,uid)async{}
+    static requestFetchUserData(uid) async{}
 
 }
 
@@ -21,7 +22,7 @@ class HttpApiService implements IHttpService{
 
 
     //this method will be called while signing up
-    static setUserData(email,username,phone,uid,coin) async
+    static requestSetUserData(email,username,phone,uid,coin) async
     {
          String url="authenticationApi/users";
          String mainUrl=IHttpService.serverUrl+url;
@@ -55,8 +56,8 @@ class HttpApiService implements IHttpService{
 
     }
 
-    //this method will be called from Profile view to change user data
-    static editUserData(phone,username,uid)async
+
+    static requestEditUserData(phone,username,uid)async
     {
         String url="authenticationApi/users/edit";
         String mainUrl=IHttpService.serverUrl+url;
@@ -116,7 +117,7 @@ class HttpApiService implements IHttpService{
     }
     //this method will be called from HomeScreen to fetch the User details and set those to the Profile Page.
     //it will be called if user data is not available on local storage.
-    static fetchUserData(uid) async
+    static requestFetchUserData(uid) async
     {
         //dynamic URL
         String url="authenticationApi/users/read/"+uid;
@@ -140,7 +141,7 @@ class HttpApiService implements IHttpService{
 
 }
 
-class HttpTransactionApiService implements HttpApiService
+class HttpTransactionApiService
 {
      static requestAddCoinData(uid,requestedCoin)async
      {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
+import 'package:trainkoi/controller/HttpController.dart';
 import 'package:trainkoi/view/PaymentGateway/CoinTransactionScreen.dart';
 import 'dart:io' as Io;
 import 'dart:convert';
@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
       final bytes = Io.File(imagePath).readAsBytesSync();
       String img64 = base64Encode(bytes);
       SharedPreferenceHelper.setUserDP(img64);
-      HttpApiService.requestUploadImage(uid,img64);
+      HttpController.requestUploadImage(uid,img64);
 
   }
   Widget profileLayout(BuildContext context)
@@ -252,7 +252,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                            {
                                                  username=_usernameEditingController.text;
                                                  phoneNo=_phoneNoEditingController.text;
-                                                 HttpApiService.editUserData(phoneNo, username, uid);
+                                                 HttpController.requestEditUserData(phoneNo, username, uid);
                                            }
 
                                      }

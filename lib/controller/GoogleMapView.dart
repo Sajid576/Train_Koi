@@ -149,7 +149,7 @@ class GoogleMapView{
 
   /// this method will be called repeatedly after getting response from the server. And then it will repeatedly
   /// update the Google map .
-  static setServerData(body)
+  static setServerResponse(body)
   {
       if(GoogleMapView.serviceNo==1 || GoogleMapView.serviceNo==3)
         {

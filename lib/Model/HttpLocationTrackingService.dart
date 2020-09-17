@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:trainkoi/Helper/AuxiliaryClass.dart';
-import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
-import 'package:trainkoi/view/Services/GoogleMapView.dart';
+import 'package:trainkoi/Model/HttpApiService.dart';
+import 'file:///D:/Flutter_Projects/train_koi/lib/controller/GoogleMapView.dart';
 
 
 abstract class IHttpLocationTrackingService
@@ -14,8 +10,6 @@ abstract class IHttpLocationTrackingService
 }
 class HttpLocationTrackingService implements IHttpLocationTrackingService
 {
-
-
   //this method will be called when a user will query for 1st or 3rd service.This method will fetch the list of
   //coordinates from train to destination station or coordinates from train to Starting station so that blue color
   // route can be drawn on the Google Map.
@@ -34,7 +28,7 @@ class HttpLocationTrackingService implements IHttpLocationTrackingService
     {
       //decode JSON to map
       Map<String, dynamic> body = jsonDecode(res.body);
-      GoogleMapView.setServerData(body);
+      GoogleMapView.setServerResponse(body);
 
 
     } else {

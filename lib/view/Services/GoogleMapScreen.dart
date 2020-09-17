@@ -5,9 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:flutter/material.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
-import 'package:trainkoi/view/Services/GoogleMapThread.dart';
-import 'package:trainkoi/view/Services/GoogleMapView.dart';
+import 'package:trainkoi/controller/HttpController.dart';
+import 'file:///D:/Flutter_Projects/train_koi/lib/controller/GoogleMapThread.dart';
+import 'file:///D:/Flutter_Projects/train_koi/lib/controller/GoogleMapView.dart';
 
 GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 class GoogleMapScreen extends StatefulWidget {

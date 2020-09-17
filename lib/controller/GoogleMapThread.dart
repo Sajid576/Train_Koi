@@ -1,8 +1,6 @@
 import 'package:eventify/eventify.dart';
-
 import 'dart:async';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
-import 'package:trainkoi/HttpClient/HttpLocationTrackingService.dart';
+import 'package:trainkoi/Model/HttpLocationTrackingService.dart';
 
 class GoogleMapThread
 {

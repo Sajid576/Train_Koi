@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
-import 'package:trainkoi/HttpClient/HttpApiService.dart';
+import 'package:trainkoi/controller/HttpController.dart';
 import 'package:trainkoi/controller/LeftNavigationDrawyerController.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
             ));
         print("Data fetching");
-        HttpApiService.fetchUserData(widget.authId);
+        HttpController.requestFetchUserData(widget.authId);
       }
     });
 
