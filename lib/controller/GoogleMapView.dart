@@ -222,7 +222,7 @@ class GoogleMapView{
         }
 
       /// called for google map screen rendering
-      MyStreamController.googleMapScreenController.add(0);
+      MyStreamController.googleMapScreenController.add([GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude]);
 
   }
 

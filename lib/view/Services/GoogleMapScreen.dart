@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:trainkoi/Helper/GeoCoder.dart';
 import 'package:trainkoi/controller/GoogleMapThread.dart';
 import 'package:trainkoi/controller/GoogleMapView.dart';
 import 'package:trainkoi/controller/MyStreamController.dart';
 
 
 
-
+GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 class GoogleMapScreen extends StatefulWidget {
   var serviceNo;
 
@@ -20,21 +21,43 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-
+  String address='';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    _scaffoldKey.currentState.showSnackBar(
+        new SnackBar(duration: new Duration(seconds: 4), content:
+        new Row(
+          children: <Widget>[
+            new CircularProgressIndicator(),
+            new Text("  Loading ... ")
+          ],
+        ),
+        ));
     //instantiate the Google Map view object
     GoogleMapView.init(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
     //start the location data fetching thread.
     GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
-    MyStreamController.googleMapScreenController.stream.listen((value) {
+     MyStreamController.googleMapScreenController.stream.listen((value) {
       print("Google Map Screen rendered");
-      setState(() {
-      });
+
+      if(widget.serviceNo==2)
+        {
+            GeoCoder.geoCoding(value[0], value[1]).then((address){
+                  setState(() {
+                    this.address=address;
+                  });
+
+            });
+        }
+      else{
+        setState(() {
+        });
+      }
+
+
     });
 
 
@@ -137,7 +160,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       title: Text('ট্রেনের বর্তমান অবস্থান', style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
-                      subtitle: Text('', style: TextStyle(
+                      subtitle: Text(address, style: TextStyle(
                         color: Colors.white,
                       ),),
 
@@ -192,7 +215,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     //_scaffoldKey = new GlobalKey<ScaffoldState>();
      return Scaffold(
-
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
         title: Text("TrainKoi"),
