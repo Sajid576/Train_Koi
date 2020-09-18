@@ -67,7 +67,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       title: Text('দূরত্ব', style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
-                      subtitle: Text(GoogleMapView.requiredDistance, style: TextStyle(
+                      subtitle: Text(GoogleMapView.requiredDistance+" ", style: TextStyle(
                         color: Colors.white,
                       ),),
 

@@ -34,8 +34,9 @@ class GoogleMapView{
 
   GoogleMapView.init(serviceNo,trainName,startingStation,endingStation)
   {
-
-
+        print("Google map init called");
+        GoogleMapView.markers = <MarkerId, Marker>{};
+        GoogleMapView.polylines= <PolylineId, Polyline>{};
         /// init class variables
         GoogleMapView.timeInfo="";
         GoogleMapView.estimatedTime="";
@@ -59,15 +60,20 @@ class GoogleMapView{
   void _onMapCreated(GoogleMapController controller) {
 
         googleMapController = controller;
-      
+
 
   }
 
   //add polyline to the Google Map widget
   static drawPolyline()
   {
+    if(GoogleMapView.polylines!=null)
+      {
+        GoogleMapView.polylines.clear();
+      }
+
     // Map storing polylines created by connecting two points
-    polylines = {};
+
     var polylineCoordinates= new List<LatLng>();
 
     GoogleMapView.route.forEach((element) {
@@ -94,7 +100,12 @@ class GoogleMapView{
   /// this method used to set train marker & destination station marker on google map
   static setMarker() async
   {
-        markers = <MarkerId, Marker>{};
+        //markers = <MarkerId, Marker>{};
+
+        if(GoogleMapView.markers!=null)
+          {
+            GoogleMapView.markers.clear();
+          }
         // Train Location Marker
         Marker trainMarker = Marker(
           markerId: MarkerId("train"),
@@ -104,9 +115,9 @@ class GoogleMapView{
           ),
           infoWindow: InfoWindow(
             title: GoogleMapView.trainName,
-            snippet: GoogleMapView.velocity,
+            snippet: "Velocity: "+GoogleMapView.velocity+" ms",
           ),
-          icon:await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/from.png'),
+          icon:await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/from.png'),
         );
 
         if(GoogleMapView.serviceNo!=2)
@@ -126,7 +137,7 @@ class GoogleMapView{
                   title:GoogleMapView.fromStation   ,
 
                 ),
-                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/to.png'),
+                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/to.png'),
               );
 
             }
@@ -142,7 +153,7 @@ class GoogleMapView{
                   title:GoogleMapView.toStation ,
 
                 ),
-                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 2.5), 'assets/to.png'),
+                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/to.png'),
               );
             }
 
@@ -181,7 +192,7 @@ class GoogleMapView{
 
                 target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
                 tilt: 30,
-                zoom: 10.00)));
+                zoom: 18.00)));
 
           }
 
@@ -202,7 +213,7 @@ class GoogleMapView{
 
                 target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
                 tilt: 30,
-                zoom: 12.00)));
+                zoom: 18.00)));
 
           }
         }
