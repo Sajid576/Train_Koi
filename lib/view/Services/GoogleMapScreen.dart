@@ -7,7 +7,7 @@ import 'package:trainkoi/controller/MyStreamController.dart';
 
 
 
-GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 class GoogleMapScreen extends StatefulWidget {
   var serviceNo;
 
@@ -21,44 +21,43 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
+
+  bool loading=false;
   String address='';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _scaffoldKey.currentState.showSnackBar(
-        new SnackBar(duration: new Duration(seconds: 4), content:
-        new Row(
-          children: <Widget>[
-            new CircularProgressIndicator(),
-            new Text("  Loading ... ")
-          ],
-        ),
-        ));
+    loading=true;
     //instantiate the Google Map view object
     GoogleMapView.init(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
     //start the location data fetching thread.
     GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
-     MyStreamController.googleMapScreenController.stream.listen((value) {
-      print("Google Map Screen rendered");
 
-      if(widget.serviceNo==2)
+    /// value is a list =[trainLat,trainLon , loadingValue(bool)]
+    MyStreamController.googleMapScreenController.stream.listen((value) {
+      print("Google Map Screen rendered");
+        print("value list:  "+value.toString());
+        if(value!=null)
+          {
+            loading=false;
+          }
+        if(widget.serviceNo==2)
         {
+
             GeoCoder.geoCoding(value[0], value[1]).then((address){
-                  setState(() {
-                    this.address=address;
-                  });
+              setState(() {
+                this.address=address;
+              });
 
             });
         }
-      else{
-        setState(() {
-        });
-      }
-
-
-    });
+        else{
+            setState(() {
+            });
+        }
+      });
 
 
 
@@ -213,9 +212,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    //_scaffoldKey = new GlobalKey<ScaffoldState>();
+
      return Scaffold(
-        key: _scaffoldKey,
+
         backgroundColor: Colors.white,
         appBar: AppBar(
         title: Text("TrainKoi"),
@@ -226,8 +225,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
          children: <Widget>[
             GoogleMapView().googleMapLayout(widget.serviceNo),
 
+           loading==true ? Center(child: CircularProgressIndicator(),) :
            widget.serviceNo==1 || widget.serviceNo==3 ? serviceOneAndThreeContainer(): serviceTwoContainer(),
-
 
 
          ],
