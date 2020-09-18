@@ -35,7 +35,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     //start the location data fetching thread.
     GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
 
-    /// value is a list =[trainLat,trainLon , loadingValue(bool)]
+    /// value is a list =[trainLat,trainLon ]
     MyStreamController.googleMapScreenController.stream.listen((value) {
       print("Google Map Screen rendered");
         print("value list:  "+value.toString());
@@ -96,7 +96,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                       title: Text('দূরত্ব', style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
-                      subtitle: Text(GoogleMapView.requiredDistance+" ", style: TextStyle(
+                      subtitle: Text(GoogleMapView.requiredDistance+" কি.মি", style: TextStyle(
                         color: Colors.white,
                       ),),
 
