@@ -35,14 +35,7 @@ class GoogleMapView{
   GoogleMapView.init(serviceNo,trainName,startingStation,endingStation)
   {
 
-        if(GoogleMapView.polylines!=null)
-          {
-            GoogleMapView.polylines.clear();
-          }
-        if(GoogleMapView.markers!=null)
-          {
-            GoogleMapView.markers.clear();
-          }
+
         /// init class variables
         GoogleMapView.timeInfo="";
         GoogleMapView.estimatedTime="";
@@ -64,10 +57,9 @@ class GoogleMapView{
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    if(googleMapController==null)
-      {
+
         googleMapController = controller;
-      }
+      
 
   }
 

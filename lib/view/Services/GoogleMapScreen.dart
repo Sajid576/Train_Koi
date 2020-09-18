@@ -185,7 +185,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Widget build(BuildContext context) {
     //_scaffoldKey = new GlobalKey<ScaffoldState>();
      return Scaffold(
-       
+
         backgroundColor: Colors.white,
         appBar: AppBar(
         title: Text("TrainKoi"),
@@ -212,9 +212,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
            {
 
              GoogleMapView.googleMapController.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-                 bearing: 192.8334901395799,
+
                  target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
-                 tilt: 30,
+
                  zoom: 18.00)));
 
            }
