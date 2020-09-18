@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trainkoi/controller/GoogleMapThread.dart';
 import 'package:trainkoi/controller/GoogleMapView.dart';
+import 'package:trainkoi/controller/MyStreamController.dart';
 
 
 
@@ -25,11 +26,17 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     //instantiate the Google Map view object
     GoogleMapView.init(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
-    GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
-
     //start the location data fetching thread.
+    GoogleMapThread.initThread(widget.serviceNo,widget.trainName,widget.startingStation,widget.endingStation);
+    MyStreamController.googleMapScreenController.stream.listen((value) {
+      print("Google Map Screen rendered");
+      setState(() {
+      });
+    });
+
 
 
   }

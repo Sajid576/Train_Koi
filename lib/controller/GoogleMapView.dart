@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:trainkoi/controller/MyStreamController.dart';
 
 
 class GoogleMapView{
@@ -35,6 +36,9 @@ class GoogleMapView{
   GoogleMapView.init(serviceNo,trainName,startingStation,endingStation)
   {
         print("Google map init called");
+
+        MyStreamController.googleMapScreenController =new BehaviorSubject();
+
         GoogleMapView.markers = <MarkerId, Marker>{};
         GoogleMapView.polylines= <PolylineId, Polyline>{};
         /// init class variables
@@ -115,9 +119,9 @@ class GoogleMapView{
           ),
           infoWindow: InfoWindow(
             title: GoogleMapView.trainName,
-            snippet: "Velocity: "+GoogleMapView.velocity+" ms",
+            snippet: "Velocity: "+GoogleMapView.velocity+" m/s",
           ),
-          icon:await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/from.png'),
+          icon:await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(50,50)), 'assets/from.png'),
         );
 
         if(GoogleMapView.serviceNo!=2)
@@ -137,7 +141,7 @@ class GoogleMapView{
                   title:GoogleMapView.fromStation   ,
 
                 ),
-                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/to.png'),
+                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(50,50)), 'assets/to.png'),
               );
 
             }
@@ -153,14 +157,15 @@ class GoogleMapView{
                   title:GoogleMapView.toStation ,
 
                 ),
-                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(devicePixelRatio: 8.5), 'assets/to.png'),
+                icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(50,50)), 'assets/to.png'),
               );
             }
 
-            GoogleMapView.markers[MarkerId("train")]=trainMarker;
+
             GoogleMapView.markers[MarkerId('destination')]=destinationMarker;
 
           }
+        GoogleMapView.markers[MarkerId("train")]=trainMarker;
   }
 
   /// this method will be called repeatedly after getting response from the server. And then it will repeatedly
@@ -191,8 +196,7 @@ class GoogleMapView{
             GoogleMapView.googleMapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
 
                 target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
-                tilt: 30,
-                zoom: 18.00)));
+                zoom: 12.00)));
 
           }
 
@@ -212,11 +216,13 @@ class GoogleMapView{
             GoogleMapView.googleMapController.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
 
                 target: LatLng(GoogleMapView.trainLatitutde,GoogleMapView.trainLongitude),
-                tilt: 30,
-                zoom: 18.00)));
+                zoom: 12.00)));
 
           }
         }
+
+      /// called for google map screen rendering
+      MyStreamController.googleMapScreenController.add(0);
 
   }
 
