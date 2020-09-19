@@ -67,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     leftnavState=LeftNavDrawyer(controller);
 
   }
-
   @override
   void dispose() {
     // TODO: implement dispose
@@ -77,8 +76,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     toStationController.dispose();
     trainNameController.dispose();
   }
-
-
 
   Widget HomeLayout(BuildContext context)
   {
@@ -106,14 +103,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               //onHorizontalDragEnd: (DragEndDetails details)=>_onHorizontalDrag(details),
               onPressed: (){
                   setState(() {
-                  if(leftnavState.isCollapsed)
-                  {
-                         leftnavState.controller.forward();
-                  }
-                  else
-                  {
-                         leftnavState.controller.reverse();
-                  }
+                        if(leftnavState.isCollapsed)
+                        {
+                               leftnavState.controller.forward();
+                        }
+                        else
+                        {
+                               leftnavState.controller.reverse();
+                        }
                         LeftNavDrawyer.leftEnabled=!LeftNavDrawyer.leftEnabled;
                         leftnavState.isCollapsed = !leftnavState.isCollapsed;
                   //just reversing it to false
@@ -124,161 +121,179 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   backgroundColor: Colors.black,
               ),
 
-            body: SingleChildScrollView(
+            body: GestureDetector(
+              onTap: (){
+                print("Gesture");
+                setState(() {
+                  if(leftnavState.isCollapsed)
+                  {
+                    leftnavState.controller.forward();
+                  }
+                  else
+                  {
+                    leftnavState.controller.reverse();
+                  }
+                  LeftNavDrawyer.leftEnabled=!LeftNavDrawyer.leftEnabled;
+                  leftnavState.isCollapsed = !leftnavState.isCollapsed;
+                  //just reversing it to false
+                });
+              },
+              child: SingleChildScrollView(
 
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 150),
-                child: Form(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 150),
+                  child: Form(
 
-                  key: _formKey,
-                  child: Column(
-                      children:<Widget>[
+                    key: _formKey,
+                    child: Column(
+                        children:<Widget>[
 
 
-                        Container(
-                          padding: EdgeInsets.only(left: 10,right:10),
-                          //color: Colors.grey.withOpacity(0.5),
-                          child: GestureDetector(
+                          Container(
+                            padding: EdgeInsets.only(left: 10,right:10),
+                            //color: Colors.grey.withOpacity(0.5),
+                            child: GestureDetector(
+                              child: Card(
+                                child: Theme(
+                                  data: theme.copyWith(primaryColor: Colors.deepPurple),
+                                  child: SimpleAutoCompleteTextField(
+
+                                    onFocusChanged:(hasFocus)
+                                    {
+
+                                    },
+                                    suggestions: Station.stationList,
+                                    decoration: InputDecoration(
+
+                                        enabledBorder: OutlineInputBorder(
+
+                                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                                            borderSide: BorderSide(color: Colors.grey[200])),
+                                        icon: Image.asset('assets/from.png'),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                                            borderSide: BorderSide(color: Colors.grey[300])),
+                                        filled: true,
+                                        fillColor: Colors.grey[100],
+                                        hintText: "যে স্টেশন হতে যাত্রা শুরু হবে"),
+                                    controller: fromStationController,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 10,right:10),
+                            //color: Colors.grey.withOpacity(0.5),
+                            child: GestureDetector(
+                              child: Card(
+                                child: Theme(
+                                  data: theme.copyWith(primaryColor: Colors.deepPurple),
+                                  child: SimpleAutoCompleteTextField(
+                                    onFocusChanged:(hasFocus)
+                                    {
+
+                                    },
+                                   suggestions: Station.stationList,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                                            borderSide: BorderSide(color: Colors.grey[200])),
+                                        icon: Image.asset('assets/to.png'),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                                            borderSide: BorderSide(color: Colors.grey[300])),
+                                        filled: true,
+                                        fillColor: Colors.grey[100],
+                                        hintText: "যে স্টেশনে যাত্রা শেষ হবে"),
+                                    controller: toStationController,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 8,
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 10,right:10),
+                            //color: Colors.grey.withOpacity(0.5),
                             child: Card(
                               child: Theme(
                                 data: theme.copyWith(primaryColor: Colors.deepPurple),
                                 child: SimpleAutoCompleteTextField(
-
                                   onFocusChanged:(hasFocus)
                                   {
 
                                   },
-                                  suggestions: Station.stationList,
+                                  suggestions: TrainList.intercityTrainList,
                                   decoration: InputDecoration(
-
                                       enabledBorder: OutlineInputBorder(
-
                                           borderRadius: BorderRadius.all(Radius.circular(8)),
                                           borderSide: BorderSide(color: Colors.grey[200])),
-                                      icon: Image.asset('assets/from.png'),
+                                      icon: Image.asset('assets/train.png',width: 60,height: 60,),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(Radius.circular(8)),
                                           borderSide: BorderSide(color: Colors.grey[300])),
                                       filled: true,
                                       fillColor: Colors.grey[100],
-                                      hintText: "যে স্টেশন হতে যাত্রা শুরু হবে"),
-                                  controller: fromStationController,
+                                      hintText: "ট্রেনের নাম"),
+                                  controller: trainNameController,
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10,right:10),
-                          //color: Colors.grey.withOpacity(0.5),
-                          child: GestureDetector(
-                            child: Card(
-                              child: Theme(
-                                data: theme.copyWith(primaryColor: Colors.deepPurple),
-                                child: SimpleAutoCompleteTextField(
-                                  onFocusChanged:(hasFocus)
-                                  {
 
-                                  },
-                                 suggestions: Station.stationList,
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          borderSide: BorderSide(color: Colors.grey[200])),
-                                      icon: Image.asset('assets/to.png'),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                                          borderSide: BorderSide(color: Colors.grey[300])),
-                                      filled: true,
-                                      fillColor: Colors.grey[100],
-                                      hintText: "যে স্টেশনে যাত্রা শেষ হবে"),
-                                  controller: toStationController,
-                                ),
-                              ),
-                            ),
+                          SizedBox(
+                            height: 8,
                           ),
-                        ),
 
-                        SizedBox(
-                          height: 8,
-                        ),
-
-                        Container(
-                          padding: EdgeInsets.only(left: 10,right:10),
-                          //color: Colors.grey.withOpacity(0.5),
-                          child: Card(
-                            child: Theme(
-                              data: theme.copyWith(primaryColor: Colors.deepPurple),
-                              child: SimpleAutoCompleteTextField(
-                                onFocusChanged:(hasFocus)
-                                {
-
-                                },
-                                suggestions: TrainList.intercityTrainList,
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: Colors.grey[200])),
-                                    icon: Image.asset('assets/train.png',width: 60,height: 60,),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                                        borderSide: BorderSide(color: Colors.grey[300])),
-                                    filled: true,
-                                    fillColor: Colors.grey[100],
-                                    hintText: "ট্রেনের নাম"),
-                                controller: trainNameController,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 8,
-                        ),
-
-                        Container(
-                          margin: EdgeInsets.only(left: 0, right: 0, bottom: 50),
-                          child: Center(
-                            child: RaisedButton(
-                              child: Text("পরবর্তী"),
-                              color:  Colors.black,
-                              onPressed:() async{
-                                if (fromStationController.text.isNotEmpty || toStationController.text.isNotEmpty || trainNameController.text.isNotEmpty)
-                                {
-                                  //fetching coin amount from local storage
-                                  var user= await SharedPreferenceHelper.readfromlocalstorage();
-                                  var coinAmount= user.getCoin();
-                                  if(coinAmount>0)
+                          Container(
+                            margin: EdgeInsets.only(left: 0, right: 0, bottom: 50),
+                            child: Center(
+                              child: RaisedButton(
+                                child: Text("পরবর্তী"),
+                                color:  Colors.black,
+                                onPressed:() async{
+                                  if (fromStationController.text.isNotEmpty || toStationController.text.isNotEmpty || trainNameController.text.isNotEmpty)
                                   {
-                                    var message="Your coin amount is "+coinAmount.toString()+".If you take the service 1 coin will be deducted from your account.Would you like to continue?";
-                                    AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+                                    //fetching coin amount from local storage
+                                    var user= await SharedPreferenceHelper.readfromlocalstorage();
+                                    var coinAmount= user.getCoin();
+                                    if(coinAmount>0)
+                                    {
+                                      var message="Your coin amount is "+coinAmount.toString()+".If you take the service 1 coin will be deducted from your account.Would you like to continue?";
+                                      AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+
+                                    }
+                                    else
+                                    {
+                                      var message="Your coin amount is "+coinAmount.toString()+".If you want to take the service ,please recharge your coin first";
+                                      AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
+                                    }
+
 
                                   }
                                   else
-                                  {
-                                    var message="Your coin amount is "+coinAmount.toString()+".If you want to take the service ,please recharge your coin first";
-                                    AuxiliaryClass.showMyDialog(_scaffoldKey,context,message,coinAmount,trainNameController.text,fromStationController.text,toStationController.text);
-                                  }
-
-
-                                }
-                                else
-                                  {
-                                    AuxiliaryClass.showToast("please fill up all the fields");
-                                    return;
-                                  }
-                              },
-                              textColor: Colors.yellow,
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                              splashColor: Colors.grey,
+                                    {
+                                      AuxiliaryClass.showToast("please fill up all the fields");
+                                      return;
+                                    }
+                                },
+                                textColor: Colors.yellow,
+                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                splashColor: Colors.grey,
+                              ),
                             ),
-                          ),
-                        )
+                          )
 
-                      ]
+                        ]
+                    ),
                   ),
                 ),
               ),

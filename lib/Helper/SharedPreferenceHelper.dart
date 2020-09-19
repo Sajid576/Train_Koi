@@ -7,7 +7,7 @@ class SharedPreferenceHelper{
 
   //this function used for storing user information in the local storage if user data is not saved in local storage.
   //this situation arises when user is not signed up yet or user uninstalled the app for some reasons.
-  static setLocalData(String email,String phone,String username,String uid,int coin) async {
+  static setLocalData(String email,String username,String phone,String uid,int coin) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', email);
     prefs.setString('phone', phone);

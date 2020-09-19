@@ -37,3 +37,9 @@ If Git for Windows is already installed, make sure you can run git commands from
 
 - Using a USB cable, plug your phone into your computer. If prompted on your device, authorize your computer to access your device.
 In the terminal, run the flutter devices command to verify that Flutter recognizes your connected Android device. By default, Flutter uses the version of the Android SDK where your adb tool is based. If you want Flutter to use a different installation of the Android SDK, you must set the ANDROID_SDK_ROOT environment variable to that installation directory.
+
+##### Get the flutter SDK
+
+- Go to the SDK archive page(https://flutter.dev/docs/development/tools/sdk/releases) to see all releases of Flutter SDK.
+
+- 

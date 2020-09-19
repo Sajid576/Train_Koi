@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:trainkoi/controller/MyStreamController.dart';
+import 'package:trainkoi/controller/MyController.dart';
 
 
 class GoogleMapView{

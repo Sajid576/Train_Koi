@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/Helper/SharedPreferenceHelper.dart';
+import 'package:trainkoi/controller/MyController.dart';
 import 'package:trainkoi/view/Services/ServiceScreen.dart';
 import 'package:trainkoi/controller/HttpController.dart';
 
@@ -78,8 +79,10 @@ class HttpApiService implements IHttpService{
             //decode JSON to map
             Map<String, dynamic> body = jsonDecode(res.body);
             var message=body['message'];
+
             SharedPreferenceHelper.updateLocalData(phone, username);
             AuxiliaryClass.showToast(message);
+            MyStreamController.ProfileViewStreamController.add(0);
 
         } else {
             AuxiliaryClass.showToast("data couldn't be edited");

@@ -1,5 +1,6 @@
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/view/Authentication/LoginScreen.dart';
+import 'package:trainkoi/view/FAQScreen.dart';
 import 'package:trainkoi/view/Services/HomeScreen.dart';
 import 'package:trainkoi/view/UserInfo/ProfileView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -99,7 +100,25 @@ class LeftNavDrawyer  {
                     height: 18,
                   ),
 
+                  FlatButton(
+                    disabledColor: selectedBackgroundColor,
+                    child:Text(
+                      "FAQ",
+                      style: TextStyle(color:  Colors.black, fontSize: 18),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => FAQScreen(),
+                          ));
+                    },
 
+                  ),
+
+                  SizedBox(
+                    height: 18,
+                  ),
 
                   FlatButton(
                     disabledColor: selectedBackgroundColor,

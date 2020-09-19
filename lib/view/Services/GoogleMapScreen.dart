@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trainkoi/Helper/GeoCoder.dart';
 import 'package:trainkoi/controller/GoogleMapThread.dart';
 import 'package:trainkoi/controller/GoogleMapView.dart';
-import 'package:trainkoi/controller/MyStreamController.dart';
+import 'package:trainkoi/controller/MyController.dart';
 
 
 
