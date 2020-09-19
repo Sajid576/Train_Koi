@@ -195,146 +195,225 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             ),
                           ],
                         ),
-                        LoadingController.loading==true? Center(child: CircularProgressIndicator()) : SizedBox(),
+
                         SizedBox(
                           height: 20.0,
                         ),
 
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                     Container(
+
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [Colors.black54, Color.fromRGBO(0, 41, 102, 1)]
+                          ),
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+
+                            SizedBox(
+                              height: 20.0,
                             ),
-                            child: Column(
-                              children: [
-                                Text('Username',
-                                    style: TextStyle(
-                                        color: Colors.blueGrey, fontSize: 18.0)),
-                                editEnabled? TextField(
-                                  enabled: editEnabled,
-                                  onChanged: (text) {
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
 
-                                    _usernameEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
+                                child: Column(
+                                  children: [
 
-                                  },
-                                  controller: _usernameEditingController,
-                                ) : Text(username,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 18.0)),
-                                SizedBox(
-                                  height: 20.0,
+                                          Container(
+                                            padding: EdgeInsets.only(top: 20,bottom: 20),
+                                            margin: EdgeInsets.only(left: 20,right: 20),
+                                            width:double.infinity,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Colors.white60,
+                                              ),
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            child: Column(
+                                              children:[
+                                                Text('User Name',
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white, fontSize: 18.0)),
+                                                editEnabled? TextField(
+                                                  enabled: editEnabled,
+                                                  onChanged: (text) {
+
+                                                    _usernameEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
+
+                                                  },
+                                                  controller: _usernameEditingController,
+                                                ) : Text(username,
+                                                    style: TextStyle(
+                                                        color: Colors.black, fontSize: 18.0)),
+
+
+                                                ]
+                                              ),
+
+                                            ),
+
+
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Container(
+                                         padding: EdgeInsets.only(top: 20,bottom: 20),
+                                         margin: EdgeInsets.only(left: 20,right: 20),
+                                         width:double.infinity,
+                                         decoration: BoxDecoration(
+                                           border: Border.all(
+                                             color: Colors.white60,
+                                           ),
+                                           borderRadius: BorderRadius.circular(10.0),
+                                         ),
+                                         child: Column(
+                                           children:[
+
+                                             Text('Email',
+                                                 style: TextStyle(
+                                                     fontWeight: FontWeight.bold,
+                                                     color: Colors.white, fontSize: 18.0)),
+                                             Text(email,
+                                                 style: TextStyle(
+                                                     color: Colors.black,
+                                                     fontSize: 20.0,
+                                                     fontWeight: FontWeight.bold)),
+                                           ]
+                                         ),
+                                       ),
+
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                   Container(
+                                     margin: EdgeInsets.only(left: 20,right: 20),
+                                     padding: EdgeInsets.only(top: 20,bottom: 20),
+                                     width:double.infinity,
+                                     decoration: BoxDecoration(
+                                       border: Border.all(
+                                         color: Colors.white60,
+                                       ),
+                                       borderRadius: BorderRadius.circular(10.0),
+                                     ),
+                                     child: Column(
+                                       children:[
+                                         Text('Mobile',
+                                             style: TextStyle(
+                                                 fontWeight: FontWeight.bold,
+                                                 color: Colors.white, fontSize: 18.0)),
+                                         editEnabled ? TextField(
+                                           enabled: editEnabled,
+                                           onChanged: (text)
+                                           {
+                                             _phoneNoEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
+                                           },
+                                           controller: _phoneNoEditingController,
+                                         ): Text(phoneNo,
+                                             style: TextStyle(
+                                                 color: Colors.black, fontSize: 18.0)),
+                                       ]
+                                     ),
+                                   ),
+
+
+                                  ],
                                 ),
-                                Text('Email',
-                                    style: TextStyle(
-                                        color: Colors.blueGrey, fontSize: 18.0)),
-                                Text(email,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                Text('Mobile',
-                                    style: TextStyle(
-                                        color: Colors.blueGrey, fontSize: 18.0)),
-                                editEnabled ? TextField(
-                                  enabled: editEnabled,
-                                  onChanged: (text)
-                                  {
-                                    _phoneNoEditingController.selection = TextSelection.fromPosition(TextPosition(offset: text.length));
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            LoadingController.loading==true? Center(child: CircularProgressIndicator()) : SizedBox(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+
+                                RaisedButton(
+                                  color: editEnabled ? Colors.green : Colors.black,
+                                  onPressed: () {
+                                    if(editEnabled)
+                                    {
+                                      if(_image!=null)
+                                      {
+                                        saveDpImage(_image.path,uid);
+                                      }
+                                      if(username!=_usernameEditingController.text || phoneNo!=_phoneNoEditingController.text)
+                                      {
+                                        setState(() {
+                                          username=_usernameEditingController.text;
+                                          phoneNo=_phoneNoEditingController.text;
+                                          LoadingController.loading=true;
+                                          HttpController.requestEditUserData(phoneNo, username, uid);
+                                        });
+
+                                      }
+
+                                    }
+                                    setState(() {
+                                      editEnabled=!editEnabled;
+                                    });
                                   },
-                                  controller: _phoneNoEditingController,
-                                ): Text(phoneNo,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 18.0)),
+                                  elevation: 4.0,
+                                  splashColor: Colors.white,
+                                  child:editEnabled? Text('Save Info', style: TextStyle(color: Colors.white, fontSize: 16.0),) : Text('Edit Info', style: TextStyle(color: Colors.white, fontSize: 16.0),),
+                                ),
 
                               ],
                             ),
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-
-                            RaisedButton(
-                              color: editEnabled ? Colors.green : Colors.black,
-                              onPressed: () {
-                                if(editEnabled)
-                                {
-                                  if(_image!=null)
-                                  {
-                                    saveDpImage(_image.path,uid);
-                                  }
-                                  if(username!=_usernameEditingController.text || phoneNo!=_phoneNoEditingController.text)
-                                  {
-                                    setState(() {
-                                      username=_usernameEditingController.text;
-                                      phoneNo=_phoneNoEditingController.text;
-                                      LoadingController.loading=true;
-                                      HttpController.requestEditUserData(phoneNo, username, uid);
-                                    });
-
-                                  }
-
-                                }
-                                setState(() {
-                                  editEnabled=!editEnabled;
-                                });
-                              },
-                              elevation: 4.0,
-                              splashColor: Colors.white,
-                              child:editEnabled? Text('Save Info', style: TextStyle(color: Colors.white, fontSize: 16.0),) : Text('Edit Info', style: TextStyle(color: Colors.white, fontSize: 16.0),),
+                            SizedBox(
+                              height: 50.0,
                             ),
 
-                          ],
-                        ),
-                        SizedBox(
-                          height: 50.0,
-                        ),
+                            Text("Account",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.black, fontSize: 40.0)),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Text("Your coin amount is "+coinAmount,
+                                style: TextStyle(
 
-                        Text("Account",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.black, fontSize: 40.0)),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text("Your coin amount is "+coinAmount,
-                            style: TextStyle(
+                                    color: Colors.black, fontSize: 25.0)),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
 
-                                color: Colors.black, fontSize: 25.0)),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-
-                            RaisedButton(
-                              color: Colors.black,
-                              onPressed: () {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CoinPaymentScreen() ));
+                                RaisedButton(
+                                  color: Colors.black,
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => CoinPaymentScreen() ));
 
 
-                              },
-                              elevation: 4.0,
-                              splashColor: Colors.white,
-                              child: Text('Add Coins', style: TextStyle(color: Colors.white, fontSize: 16.0),) ,
+                                  },
+                                  elevation: 4.0,
+                                  splashColor: Colors.white,
+                                  child: Text('Add Coins', style: TextStyle(color: Colors.white, fontSize: 16.0),) ,
+                                ),
+
+                              ],
                             ),
 
+                            SizedBox(
+                              height: 50.0,
+                            ),
+
+
                           ],
-                        ),
+                      ),
 
-                        SizedBox(
-                          height: 50.0,
-                        ),
 
+                    )
 
 
                       ],
