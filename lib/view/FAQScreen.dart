@@ -74,19 +74,14 @@ class _FAQScreenState extends State<FAQScreen> with SingleTickerProviderStateMix
 
             body: GestureDetector(
               onTap: (){
-                print("Gesture");
                 setState(() {
-                  if(leftnavState.isCollapsed)
+                  if(!leftnavState.isCollapsed)
                   {
-                    leftnavState.controller.forward();
-                  }
-                  else
-                  {
+                    print("Gesture");
                     leftnavState.controller.reverse();
+                    LeftNavDrawyer.leftEnabled=!LeftNavDrawyer.leftEnabled;
+                    leftnavState.isCollapsed = !leftnavState.isCollapsed;
                   }
-                  LeftNavDrawyer.leftEnabled=!LeftNavDrawyer.leftEnabled;
-                  leftnavState.isCollapsed = !leftnavState.isCollapsed;
-                  //just reversing it to false
                 });
               },
               child: SingleChildScrollView(

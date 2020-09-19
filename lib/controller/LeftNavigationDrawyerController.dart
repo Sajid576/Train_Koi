@@ -19,14 +19,19 @@ class LeftNavDrawyer  {
 
   static Duration duration = const Duration(milliseconds: 300);
   AnimationController controller;
-  bool isCollapsed = true; //at the begining it is collapsed that means only home is showing 100%
+  /// collapsed=true  navigation layout is not being showed and collapsed=false means Screen layout is being showed 100%
+  bool isCollapsed = true;
+  /// leftEnabled=false means  navigation layout is not being showed and leftEnabled=true means Screen layout is being showed 100%
+  static bool leftEnabled=false;
+
   Animation<double> scaleAnimation;
 
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
   Color selectedBackgroundColor =Colors.white;
   // _controller,_scaleAnimation these for top and bottom so that they don't have overflow condition
-  static bool leftEnabled=false;
+
+
 
   LeftNavDrawyer(control){
 
