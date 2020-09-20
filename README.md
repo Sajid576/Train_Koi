@@ -1,6 +1,9 @@
-# Trainkoi
+# Project Architecture
 
-This is an android application where realtime time live tracking of all trains of Bangladesh implemented. 
+TrainKoi is composed of a backend and a frontend side. Backend is responsible for storing realtime locations of all the trains,running a graph algorithm for creating a route ,calculating required distance and estimated time between the train and the stations.
+And the frontend to allow the user to query their desired train locations and view the route , required distance , estimated time and the nearest stations.
+
+
 
 
 
