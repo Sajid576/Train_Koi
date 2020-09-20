@@ -53,8 +53,11 @@ After finishing this all, now you can run the flutter commands in the flutter co
 If you wish to run the Flutter commands in regular windows console, You have to set up the environment variable for flutter path.
 
 ##### Set up an Environment variable for Flutter.
-In your start search bar search as ‘eve’ and select Edit environment variables for your account.
+- In your start search bar search as ‘eve’ and select Edit environment variables for your account.
 Under User Variables select the option PATH and Edit…
 
 <img width="473" alt="Capture" src="https://user-images.githubusercontent.com/36130772/93694748-5d916380-fb31-11ea-96ed-68534e7517cd.PNG">
 
+- Edit environment variable window will pop-up.
+
+- 
