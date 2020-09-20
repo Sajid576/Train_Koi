@@ -42,4 +42,19 @@ In the terminal, run the flutter devices command to verify that Flutter recogniz
 
 - Go to the SDK archive page(https://flutter.dev/docs/development/tools/sdk/releases) to see all releases of Flutter SDK.
 
-- 
+- Create the new folder as flutter into C:\src (C:\src\flutter) and extract the Flutter SDK zip file in to there.
+
+- After extracting the Flutter SDK, Start it by double-clicking on flutter_console.bat inside the Flutter file.
+
+After finishing this all, now you can run the flutter commands in the flutter console.
+
+If you wish to run the Flutter commands in regular windows console, You have to set up the environment variable for flutter path.
+After finishing this all, now you can run the flutter commands in the flutter console.
+If you wish to run the Flutter commands in regular windows console, You have to set up the environment variable for flutter path.
+
+##### Set up an Environment variable for Flutter.
+In your start search bar search as ‘eve’ and select Edit environment variables for your account.
+Under User Variables select the option PATH and Edit…
+
+
+
