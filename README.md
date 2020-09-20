@@ -60,4 +60,6 @@ Under User Variables select the option PATH and Edit…
 
 - Edit environment variable window will pop-up.
 
-- 
+<img width="482" alt="Capture1" src="https://user-images.githubusercontent.com/36130772/93694807-e3151380-fb31-11ea-8158-9363844f2823.PNG">
+
+- Click the option New and Input the flutter bin path (C:\src\flutter\bin). 
