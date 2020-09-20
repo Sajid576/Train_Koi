@@ -77,7 +77,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                           // border:OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
                         ),
                         validator: (String value) {
-                          if (value.isEmpty) {
+                          if (value.isEmpty || !_emailController.text.contains("@")) {
                             return 'Please enter the email address';
                           }
                           return null;
@@ -193,7 +193,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       alignment: Alignment.center,
                       child: RaisedButton(
-                        color: Colors.black54,
+                        color: Colors.black,
                         onPressed: () async {
 
                           if (_formKey.currentState.validate()) {

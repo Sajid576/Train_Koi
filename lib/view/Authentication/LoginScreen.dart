@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:trainkoi/Helper/AuxiliaryClass.dart';
+import 'package:trainkoi/view/Authentication/ForgotPasswordScreen.dart';
 import 'package:trainkoi/view/Authentication/RegisterScreen.dart';
 import 'package:trainkoi/view/Services/HomeScreen.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +167,13 @@ class LoginScreenState extends State<LoginScreen> {
                         child: FlatButton(
                           //padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
                           //color: Colors.transparent,
-                          onPressed: () => {},
+                          onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                          )
+
+                          },
                           child:  Text(
                             "Forgot your password?",
                             style: TextStyle(color: Colors.white.withOpacity(0.5)),
