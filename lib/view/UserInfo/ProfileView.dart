@@ -52,6 +52,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
 
       setState(() {
         userDP=user.getDP();
+
         uid=user.getuid();
         phoneNo=user.getphone();
         username = user.getusername();
@@ -85,12 +86,16 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     });
   }
 
+  Image imageFromBase64String() {
+    return Image.memory(base64Decode(userDP));
+  }
+
   saveDpImage(imagePath,uid)
   {
     final bytes = Io.File(imagePath).readAsBytesSync();
     String img64 = base64Encode(bytes);
     SharedPreferenceHelper.setUserDP(img64);
-    HttpController.requestUploadImage(uid,img64);
+    //HttpController.requestUploadImage(uid,img64);
 
   }
   Widget profileLayout(BuildContext context)
@@ -174,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                     child: (_image!=null)?Image.file(
                                       _image,
                                       fit: BoxFit.fill,
-                                    ):Image.asset('assets/person.png',fit: BoxFit.fill,),
+                                    ): (userDP.isEmpty)? Image.asset('assets/person.png',fit: BoxFit.fill,):imageFromBase64String(),
                                   ),
                                 ),
                               ),

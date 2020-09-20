@@ -35,6 +35,7 @@ dev_dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   google_fonts: ^0.2.0
+  # for showing toast messages
   fluttertoast: ^3.1.3
   font_awesome_flutter: ^8.2.0
 
@@ -61,20 +62,12 @@ dev_dependencies:
   image: ^2.1.4
 
 
-  #swipe detection on the screen
-  swipedetector: ^1.2.0
-  #Date-Time picker package
-  datetime_picker_formfield: ^1.0.0
-
-  #DateFormat package
-  intl: ^0.16.1
-
   #library for checking internet connectivity
   connectivity: ^0.4.6+2
 
   #library for selecting image from gallery
   image_picker: ^0.5.3+1
-  multi_image_picker: ^4.6.5+rc.1
+
 
   #A library that is used to store images in local cache from internet
   cached_network_image: ^2.0.0

@@ -52,7 +52,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           onTap:(){
                             navigateToGoogleMapScreen(1);
                           },
-                        title: Text('যাত্রা শুরুর স্টেশন থেকে ট্রেনের প্রয়োজনীয় সময় ও দূরত্ব' ,style: TextStyle(
+                        title: Text('ট্রেন আসতে কতক্ষন লাগবে?' ,style: TextStyle(
                               color: Colors.white,
                         ),),
                     ),
@@ -93,7 +93,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     ),
                     child: ListTile(
 
-                      title: Text('ট্রেন থেকে যাত্রা শেষ স্টেশনে পৌছাতে প্রয়োজনীয় সময় ও দূরত্ব',style: TextStyle(
+                      title: Text('গন্তব্যে পৌছাতে কতক্ষন লাগবে? ',style: TextStyle(
                         color: Colors.white,
                       ),),
 

@@ -9,10 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-import 'package:swipedetector/swipedetector.dart';
-
-
-
 class LeftNavDrawyer  {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
