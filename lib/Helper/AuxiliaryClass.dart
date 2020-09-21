@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 
 
-
+/// This class used to show toast messages,alert dialog window and check Internet connection
 
 class AuxiliaryClass{
 

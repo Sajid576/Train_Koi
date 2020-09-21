@@ -52,7 +52,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           onTap:(){
                             navigateToGoogleMapScreen(1);
                           },
-                        title: Text('ট্রেন আসতে কতক্ষন লাগবে?' ,style: TextStyle(
+                        title: Text('শুরুর স্টেশনে ট্রেন আসতে কতক্ষন লাগবে?' ,style: TextStyle(
                               color: Colors.white,
                         ),),
                     ),

@@ -117,8 +117,7 @@ class HttpApiService implements IHttpService{
             AuxiliaryClass.showToast("image failed to upload");
         }
     }
-    //this method will be called from HomeScreen to fetch the User details and set those to the Profile Page.
-    //it will be called if user data is not available on local storage.
+    
     static requestFetchUserData(uid) async
     {
         //dynamic URL
@@ -197,7 +196,7 @@ class HttpTransactionApiService
              Map<String, dynamic> body = jsonDecode(res.body);
              var message=body['message'];
              var coin=body['coins'];
-             //updating the coin amount in local database after decrementing the coin
+
              SharedPreferenceHelper.updateLocalCoinData(coin);
 
              AuxiliaryClass.showToast(message);

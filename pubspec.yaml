@@ -60,7 +60,8 @@ dev_dependencies:
   geolocator: ^5.3.1
   #for loading image on the google map marker
   image: ^2.1.4
-
+  #plugin for webview
+  webview_flutter: ^0.3.22+1
 
   #library for checking internet connectivity
   connectivity: ^0.4.6+2

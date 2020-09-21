@@ -2,6 +2,7 @@ import 'package:trainkoi/Helper/AuxiliaryClass.dart';
 import 'package:trainkoi/view/Authentication/LoginScreen.dart';
 import 'package:trainkoi/view/FAQScreen.dart';
 import 'package:trainkoi/view/Services/HomeScreen.dart';
+import 'package:trainkoi/view/TrainScheduleScreen.dart';
 import 'package:trainkoi/view/UserInfo/ProfileView.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
@@ -92,6 +93,25 @@ class LeftNavDrawyer  {
                       Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) => ProfilePage(),
+                          ));
+                    },
+
+                  ),
+
+                  SizedBox(
+                    height: 18,
+                  ),
+                  FlatButton(
+                    disabledColor: selectedBackgroundColor,
+                    child:Text(
+                      "Train Schedule",
+                      style: TextStyle(color:  Colors.black, fontSize: 18),
+                    ),
+                    onPressed: () {
+
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => TrainScheduleScreen(),
                           ));
                     },
 

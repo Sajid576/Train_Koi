@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'TrainKoi',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.black,
         ),
         home:SplashScreen(),
         //home:ServiceScreen(),
