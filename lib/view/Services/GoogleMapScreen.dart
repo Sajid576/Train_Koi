@@ -171,7 +171,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     color: Colors.black.withOpacity(0.0),
                     child: ListTile(
 
-                      title: Text('পূর্ববর্তী স্টেশন', style: TextStyle(
+                      title: Text('ট্রেন এখন '+GoogleMapView.station_junction1+' ও '+ GoogleMapView.station_junction2+' এর মাঝে অবস্থিত'
+                        , style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold,
                       ),),
                       subtitle: Text('', style: TextStyle(
@@ -181,20 +182,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     ),
 
                   ),
-                  Card(
-                    color: Colors.black.withOpacity(0.0),
-                    child: ListTile(
 
-                      title: Text('পরবর্তী স্টেশন', style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold,
-                      ),),
-                      subtitle: Text('', style: TextStyle(
-                        color: Colors.white,
-                      ),),
-
-                    ),
-
-                  ),
 
 
                 ]

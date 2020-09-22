@@ -18,7 +18,8 @@ class GoogleMapView{
   static double trainLatitutde=0;
   static double destLat=0;
   static double destLon=0;
-  static String direction="";
+  static String station_junction1="";
+  static String station_junction2="";
 
   static String trainName="";
   static String fromStation="";
@@ -51,7 +52,8 @@ class GoogleMapView{
         //GoogleMapView.trainLatitutde=0;
         GoogleMapView.destLat=0;
         GoogleMapView.destLon=0;
-        GoogleMapView.direction="";
+        GoogleMapView.station_junction1="";
+        GoogleMapView.station_junction2="";
 
         //init class variables with parameter values
         GoogleMapView.serviceNo=serviceNo;
@@ -62,10 +64,7 @@ class GoogleMapView{
   }
 
   void _onMapCreated(GoogleMapController controller) {
-
         googleMapController = controller;
-
-
   }
 
   //add polyline to the Google Map widget
@@ -138,7 +137,7 @@ class GoogleMapView{
                   GoogleMapView.destLon,
                 ),
                 infoWindow: InfoWindow(
-                  title:GoogleMapView.fromStation   ,
+                  title:GoogleMapView.fromStation ,
 
                 ),
                 icon: await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(50,50)), 'assets/to.png'),
@@ -174,10 +173,12 @@ class GoogleMapView{
   {
       if(GoogleMapView.serviceNo==1 || GoogleMapView.serviceNo==3)
         {
-          GoogleMapView.estimatedTime=body['estimatedTime'].toString();
-          GoogleMapView.timeInfo=body['message'];
-          GoogleMapView.requiredDistance=body['requiredDistance'].toString();
-          GoogleMapView.route=body['route'];
+          GoogleMapView.estimatedTime=       body['estimatedTime'].toString();
+          GoogleMapView.timeInfo=            body['message'];
+          GoogleMapView.requiredDistance=    body['requiredDistance'].toString();
+          GoogleMapView.route=               body['route'];
+
+
           GoogleMapView.destLat= double.parse(body['destinationCordinate'].split(',')[0]) ;
           GoogleMapView.destLon= double.parse(body['destinationCordinate'].split(',')[1]) ;
 
@@ -203,11 +204,15 @@ class GoogleMapView{
         }
       else
         {
+
           var trainData=body['traindata'];
           GoogleMapView.velocity=trainData['velocity'];
           GoogleMapView.trainLatitutde=double.parse( trainData['latitude']);
           GoogleMapView.trainLongitude= double.parse(trainData['longitude']);
+          GoogleMapView.station_junction1  = body['nearestStation_junction'].split('-')[0];
+          GoogleMapView.station_junction2  = body['nearestStation_junction'].split('-')[1];
 
+          print(GoogleMapView.station_junction1+"-"+GoogleMapView.station_junction2);
           setMarker();
 
           if (GoogleMapView.googleMapController != null)

@@ -19,9 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void getCurrentUser() async {
     FirebaseUser _user = await _firebaseAuth.currentUser();
+
     setState(() {
       user = _user;
     });
+
   }
   @override
   void initState() {

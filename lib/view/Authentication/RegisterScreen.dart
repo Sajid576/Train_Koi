@@ -235,7 +235,7 @@ class RegisterScreenState extends State<RegisterScreen> {
         new Row(
           children: <Widget>[
             new CircularProgressIndicator(),
-            new Text("  Signing-In... ")
+            new Text("  Signing-Up... ")
           ],
         ),
         ));
