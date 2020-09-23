@@ -133,7 +133,7 @@ class HttpApiService implements IHttpService{
             print(body);
 
             //saving the user data in local storage after fetching from server
-            SharedPreferenceHelper.setLocalData(body['email'], body['phone'],body['username'],body['uid'],body['coins'] );
+            SharedPreferenceHelper.setLocalData(body['email'], body['username'],body['phone'],body['uid'],body['coins'] );
             print(body['message']);
 
         } else {
