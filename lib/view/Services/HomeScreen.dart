@@ -256,6 +256,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 child: Text("পরবর্তী"),
                                 color:  Colors.black,
                                 onPressed:() async{
+                                  if( !Station.stationList.contains(fromStationController.text)  )
+                                    {
+                                        AuxiliaryClass.showToast("please enter a suggested station name");
+                                        return;
+                                    }
+                                  if( !Station.stationList.contains(toStationController.text)  )
+                                  {
+                                        AuxiliaryClass.showToast("please enter a suggested station name");
+                                        return;
+                                  }
+                                  if( !TrainList.intercityTrainList.contains(trainNameController.text)  )
+                                  {
+                                        AuxiliaryClass.showToast("please enter a suggested train name");
+                                        return;
+                                  }
+
                                   if (fromStationController.text.isNotEmpty || toStationController.text.isNotEmpty || trainNameController.text.isNotEmpty)
                                   {
                                     //fetching coin amount from local storage
