@@ -11,17 +11,26 @@ And the frontend to allow the user to query their desired train locations and vi
 - Setup Dart & Flutter plugin from android studio
 
 ## Project Installation Guide:
-- After opening the project you might have to configure the flutter SDK.
+- After opening the project you might have to configure the flutter SDK path.
 
-- Then use `pub get` command to install all the required plugins.(Make sure you are on the path where the pubspec.yaml exists)
+- Install all the required plugins using below command.
+```
+$ pub get
+```
+Make sure you are on the path where the pubspec.yaml exists.
 
-- Then use `flutter clean` command and run the project.
-
-You are good to go... :)
+- Clean build caches using below command-
+```
+$ flutter clean
+```
+-  run the project and you are good to go... :)
 
 
 ##### Run Flutter Doctor.[Optional]
-`flutter doctor` command use to see if there any platform dependencies need to complete the setup.
+```
+$ flutter doctor
+```
+Use above command use to see if there any platform dependencies need to complete the setup.
 You can also run this command from android studio IDE.
 
 ## References
