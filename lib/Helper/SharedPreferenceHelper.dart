@@ -1,5 +1,5 @@
-import 'package:trainkoi/Helper/Userprofiledetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trainkoi/Model/UserModel.dart';
 
 class SharedPreferenceHelper{
 
@@ -7,22 +7,22 @@ class SharedPreferenceHelper{
 
   //this function used for storing user information in the local storage if user data is not saved in local storage.
   //this situation arises when user is not signed up yet or user uninstalled the app for some reasons.
-  static setLocalData(String email,String username,String phone,String uid,int coin) async {
+  static setLocalData(UserModel userData) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('email', email);
-    prefs.setString('phone', phone);
-    prefs.setString('username', username);
-    prefs.setString('uid', uid);
-    prefs.setInt('coin', coin);
+    prefs.setString('email', userData.getemail());
+    prefs.setString('phone', userData.getphone());
+    prefs.setString('username', userData.getusername());
+    prefs.setString('uid', userData.getuid());
+    prefs.setInt('coin', userData.getCoin());
     prefs.setBool('session', true);
 
 
   }
   ///this function used for storing user information in the local storage
-  static updateLocalData(String phone,String username) async {
+  static updateLocalData(UserModel userData) async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
-    prefs1.setString('phone', phone);
-    prefs1.setString('username', username);
+    prefs1.setString('phone', userData.getphone());
+    prefs1.setString('username', userData.getusername());
     prefs1.setBool('session', true);
   }
   static updateLocalUid(uid)async
@@ -37,11 +37,11 @@ class SharedPreferenceHelper{
     prefs1.setInt('coin', coin);
   }
 
-
   static setUserDP(img64) async {
     SharedPreferences prefs1 = await SharedPreferences.getInstance();
     prefs1.setString('dp', img64);
   }
+
 
 
 
@@ -57,7 +57,7 @@ class SharedPreferenceHelper{
     int coin = prefs.getInt('coin')?? 0;
 
 
-    Userprofiledetails userProfile = new Userprofiledetails(dp:dp,phone:phone,username: username,uid: uid,session: session,email: email,coin:coin);
+    UserModel userProfile = new UserModel(dp:dp,phone:phone,username: username,uid: uid,session: session,email: email,coin:coin);
     return userProfile;
   }
 

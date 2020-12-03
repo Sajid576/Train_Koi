@@ -170,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                             Align(
                               alignment: Alignment.center,
                               child: CircleAvatar(
-                                radius: 100,
+                                radius: 80,
                                 backgroundColor: Colors.black45,
                                 child: ClipOval(
                                   child: new SizedBox(
@@ -348,6 +348,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                       if(_image!=null)
                                       {
                                         saveDpImage(_image.path,uid);
+                                        HttpController.requestEditUserData(phoneNo, username, uid,userDP,email);
                                       }
                                       if(username!=_usernameEditingController.text || phoneNo!=_phoneNoEditingController.text)
                                       {
@@ -355,7 +356,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                           username=_usernameEditingController.text;
                                           phoneNo=_phoneNoEditingController.text;
                                           LoadingController.loading=true;
-                                          HttpController.requestEditUserData(phoneNo, username, uid);
+                                          HttpController.requestEditUserData(phoneNo, username, uid,userDP,email);
                                         });
 
                                       }

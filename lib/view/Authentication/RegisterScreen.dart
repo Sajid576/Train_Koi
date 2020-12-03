@@ -247,7 +247,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       )).user;
       if (user != null) {
 
-        HttpController.requestSetUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20);
+        HttpController.requestSetUserData(_emailController.text.trim(), _userNameController.text.trim(), _phoneController.text.trim(), user.uid,20,null);
 
         //Navigator.pop(context);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen() ));

@@ -1,24 +1,25 @@
 import 'package:trainkoi/Model/HttpApiService.dart';
-
+import 'package:trainkoi/Model/UserModel.dart';
 
 class HttpController implements IHttpService{
 
 
-  static requestSetUserData(email,username,phone,uid,coin) async
+  static requestSetUserData(email,username,phone,uid,coin,dp) async
   {
-        HttpApiService.requestSetUserData(email, username, phone, uid, coin);
+    UserModel userProfile = new UserModel(dp:dp,phone:phone,username: username,uid: uid,session: true,email: email,coin:coin);
+
+    HttpApiService.requestSetUserData(userProfile);
   }
 
-  static requestEditUserData(phone,username,uid)async
+  static requestEditUserData(phone,username,uid,dp,email)async
   {
-        HttpApiService.requestEditUserData(phone, username, uid);
+
+    UserModel userProfile = new UserModel(dp:dp,phone:phone,username: username,uid: uid,email: email);
+
+    HttpApiService.requestEditUserData(userProfile);
   }
 
-  ///this request is for uploading image url to server
-  static requestUploadImage(uid,dp) async
-  {
-        HttpApiService.requestUploadImage(uid, dp);
-  }
+
   /// this method will be called from HomeScreen to fetch the User details and set those to the Profile Page when loaded.
   /// it will be called if user data is not available on local storage.
   static requestFetchUserData(uid) async
@@ -32,7 +33,11 @@ class HttpTransactionController
 {
   static requestAddCoinData(uid,requestedCoin) async
   {
-        HttpTransactionApiService.requestAddCoinData(uid, requestedCoin);
+
+        UserModel userModel=new UserModel();
+        userModel.setCoin(requestedCoin);
+        userModel.setUid(uid);
+        HttpTransactionApiService.requestAddCoinData(userModel);
   }
 
   static requestSpendCoinData(context,uid,trainName,startingStation,endingStation) async
